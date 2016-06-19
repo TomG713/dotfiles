@@ -1,0 +1,57 @@
+#!/bin/sh
+#
+# dot
+#
+# `dot` handles installation, updates, things like that. Run it periodically
+# to make sure you're on the latest and greatest.
+export ZSH=$HOME/.dotfiles
+
+# Set OS X defaults
+$ZSH/osx/set-defaults.sh
+
+# Update homebrew
+#$ZSH/homebrew/cask-upgrade auto 2>&1
+#$ZSH/homebrew/install.sh 2>&1
+echo "› brew update"
+brew update
+brew cask update
+brew upgrade --all
+#brew upgrade brew-cask
+#brew cask update
+#$ZSH/homebrew/update.sh 2>&1
+brew cleanup
+brew cask cleanup
+brew prune
+brew doctor
+#$ZSH/homebrew/clean.sh 2>&1
+
+# Install software
+echo "› $ZSH/script/install"
+$ZSH/script/install
+
+# Update Ruby
+echo "› ruby update"
+#rvm get stable &&
+gem update && gem update --system
+
+# Update sdk
+$ZSH/sdk/install.sh 2>&1
+echo "› sdk updates"
+source ~/.sdkman/bin/sdkman-init.sh
+sdk selfupdate
+
+# Update node
+echo "› node update"
+n latest && npm update -g
+
+# vim Update
+echo "> vim update"
+~/.vim/update
+
+# keep atom stars updated
+apm stars --install
+apm star --installed
+
+# Update prezto
+echo "> updating prezto"
+cd ~/.zprezto && git pull && git submodule update --init --recursive && cd ~
