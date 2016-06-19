@@ -1,0 +1,11 @@
+# pairs - configuration for 'git pair'
+# git pair commit
+# git project <<project name>>
+# https://github.com/pivotal/git_scripts
+
+pairs:
+  # <initials>: <Firstname> <Lastname>[; <email-id>]
+  tg: Thomas Gamble; tgamble
+email:
+  domain: thoughtworks.com
+global: false  # Set to true for git-pair to change git configuration for all your projects

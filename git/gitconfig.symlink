@@ -9,6 +9,25 @@
         wtf     = !$ZSH/bin/git-wtf
         rank-contributors = !$ZSH/bin/git-rank-contributors
         count   = !git shortlog -sn
+        st = status
+        di = diff
+        co = checkout
+        ci = ci commit
+        br = branch
+        sta = stash
+        llog = log --date=local
+        flog = log --pretty=fuller --decorate
+        lg = log --graph #{pretty_format} --abbrev-commit --date=relative\
+        lol = log --graph --decorate --oneline
+        lola = log --graph --decorate --oneline --all
+        blog = log origin/master... --left-right
+        ds = diff --staged
+        fixup = commit --fixup
+        squash = commit --squash
+        unstage = reset HEAD
+        rum = rebase master@{u}
+        glog=log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+        sb=status -sb # upgrade your git if -sb breaks for you. it's fun.
 [color]
         diff = auto
         status = auto

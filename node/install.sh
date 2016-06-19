@@ -1,4 +1,9 @@
-if test ! $(which spoof)
+if test ! $(which ncu)
 then
-  sudo npm install spoof -g
+  npm install npm-check-updates -g
+fi
+
+if test ! $(which webpack)
+then
+  npm install webpack -g
 fi
