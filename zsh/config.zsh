@@ -1,6 +1,8 @@
 # export LSCOLORS="exfxcxdxbxegedabagacad"
 # export CLICOLOR=true
 
+LS_COLORS="ow=01;36;40" && export LS_COLORS
+
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
