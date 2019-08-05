@@ -141,7 +141,7 @@ install_dotfiles () {
 
 setup_gitconfig
 install_dotfiles
-yarn config set prefix /usr/local/
+
 
 # If we're on a Mac, let's install and setup homebrew.
 if [ "$(uname -s)" == "Darwin" ]
@@ -154,6 +154,8 @@ then
     fail "error installing dependencies"
   fi
 fi
+
+sudo add-apt-repository ppa:deadsnakes/ppa
 
 echo ''
 echo '  All installed!'

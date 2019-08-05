@@ -1,4 +1,4 @@
-if [[ ! -d ~/.vim ]]
+if [ ! -d ~/.vim ]
   # then
 #  git clone https://github.com/luan/vimfiles ~/.vim
 #  pip3 install --upgrade neovim

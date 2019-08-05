@@ -1,0 +1,11 @@
+zsh
+apt-transport-https
+ca-certificates
+curl
+software-properties-common
+git
+rbenv
+golang-go
+neovim
+python3.7
+python3-venv

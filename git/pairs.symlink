@@ -5,7 +5,7 @@
 
 pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
-  tg: Thomas Gamble; tgamble
+  tg: Thomas Gamble; thgamble
 email:
-  domain: thoughtworks.com
+  domain: microsoft.com
 global: false  # Set to true for git-pair to change git configuration for all your projects

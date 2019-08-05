@@ -7,6 +7,21 @@
 
 set -e
 
+# ref: https://askubuntu.com/a/30157/8698
+# if ! [ $(id -u) = 0 ]; then
+#    echo "Update script must be run as root" >&2
+#    exit 1
+# fi
+
+# if [ $SUDO_USER ]; then
+#     real_user=$SUDO_USER
+# else
+#     real_user=$(whoami)
+# fi
+# Commands that you don't want run with root would be invoked
+# with: sudo -u $real_user
+
+
 parentDirectory="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P)"
 dotfilesDirectory="$(cd "$( dirname "$parentDirectory" )" && pwd -P)"
 
@@ -40,20 +55,6 @@ done
 
 export ZSH=$HOME/.dotfiles
 
-# Set macOS defaults
-$ZSH/macos/set-defaults.sh
-
-# Install homebrew
-$ZSH/homebrew/install.sh 2>&1
-
-# Upgrade homebrew
-echo "› brew update"
-brew update
-#brew cask update
-brew upgrade
-brew cleanup
-
-# Install software
 echo "› Installing $ZSH/script/install"
 $ZSH/script/install
 
