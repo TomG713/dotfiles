@@ -9,7 +9,5 @@ set -e
 
 export ZSH=$HOME/.dotfiles
 
-echo "› Installing $ZSH/script/install"
+echo "› running $ZSH/script/install"
 $ZSH/script/install
-
-
