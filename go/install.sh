@@ -6,7 +6,7 @@ then
   curl -O https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz
   sudo tar xvf go${GO_VERSION}.linux-amd64.tar.gz -C /usr/local/go
   rm go${GO_VERSION}.linux-amd64.tar.gz
-  export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+  source ./path.zsh
   go get golang.org/x/tools/cmd/godoc
   go get github.com/golang/lint/golint
 fi

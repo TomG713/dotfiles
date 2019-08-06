@@ -7,10 +7,12 @@ set -e
 cd "$(dirname $0)"/..
 
 echo "-----------------------"
-sudo apt update
-sudo apt upgrade -y
+echo "> updating linux"
+sudo apt update || true 
+sudo apt upgrade -y || true
 cat packages.txt | xargs sudo apt-get install -y
 sudo apt autoremove -y
+sudo apt clean
 echo "-----------------------"
 
 # find the installers and run them iteratively

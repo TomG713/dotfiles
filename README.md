@@ -1,23 +1,18 @@
 ## dotfiles
 
 Your dotfiles are how you personalize your system. These are mine.
-Forked from https://github.com/holman/dotfiles.git
+Forked from https://github.com/holman/dotfiles.git.
 
-If you're interested in the philosophy behind why projects like these are
-awesome, you might want to [read his post on the
-subject](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/).
+This was originally used on OSx, but has been converted for use on WSL.  
 
 ## install
-
-Run this:
 
 ```sh
 zsh
 git clone https://github.com/gambtho/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 script/bootstrap
-echo "/usr/local/bin/zsh" >> /etc/shells
-chsh -s /usr/local/bin/zsh
+reload!
 dot
 ```
 
@@ -27,7 +22,7 @@ Everything is configured and tweaked within `~/.dotfiles`.
 The main file you'll want to change right off the bat is `zsh/zshrc.symlink`,
 which sets up a few paths that'll be different on your particular machine.
 
-`dot` is a simple script that installs some dependencies, sets sane OS X
+`dot` is a simple script that installs some dependencies, sets sane
 defaults, and so on. Tweak this script, and occasionally run `dot` from
 time to time to keep your environment fresh and up-to-date. You can find
 this script in `bin/`.
@@ -46,7 +41,7 @@ There's a few special files in the hierarchy.
 
 - **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
   available everywhere.
-- **Brewfile**: This is a list of applications for [Homebrew Cask](https://caskroom.github.io) to install: things like Chrome and 1Password and Adium and stuff. Might want to edit this file before running any initial setup.
+- **packages.txt**: This is a list of applications for aptto install: Might want to edit this file before running any initial setup.
 - **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
   environment.
 - **topic/path.zsh**: Any file named `path.zsh` is loaded first and is
@@ -61,9 +56,5 @@ There's a few special files in the hierarchy.
 
 ## notes and links
 
-- evaluate vi customizations
-- evaluate prompt changes up/down arrow
-- find prezto command history
-
+* evaluate vi customizations
 * https://github.com/luan/vimfiles/wiki/Luan's-Vim-Cheat-Sheet
-* https://github.com/mbadolato/iTerm2-Color-Schemes (atom)

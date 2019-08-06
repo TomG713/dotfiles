@@ -1,3 +1,5 @@
+echo "> validating vim install"
+
 if [ ! -d ~/.vim ]
   # then
 #  git clone https://github.com/luan/vimfiles ~/.vim
@@ -10,5 +12,9 @@ then
 	ln -sf $HOME/.vim/vimrc $HOME/.vimrc
 	cd $HOME/.vim
 	git submodule update --init
+else
+	echo "> updating vim settings"
+	cd $HOME/.vim
+	make update 
 fi
 
