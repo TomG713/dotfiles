@@ -11,7 +11,3 @@ export ZSH=$HOME/.dotfiles
 
 echo "› running $ZSH/script/install"
 $ZSH/script/install
-$ZSH/script/packages > $ZSH/manual/tmp_packages.txt
-cp /etc/apt/sources.list $ZSH/manual/
-
-sudo do-release-upgrade -c

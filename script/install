@@ -2,17 +2,19 @@
 #
 # Run all dotfiles installers.
 
-set -e
-
 cd "$(dirname $0)"/..
 
+if test ! $(which brew)
+then
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+fi
+
 echo "-----------------------"
-echo "> updating linux"
-sudo apt update || true 
-sudo apt upgrade -y || true
-cat packages.txt | xargs sudo apt-get install -y
-sudo apt autoremove -y
-sudo apt clean
+echo "> updating with homebrew"
+brew update
+brew upgrade
+brew cleanup
+brew bundle dump --all --force --file=./tmp/Brewfile
 echo "-----------------------"
 
 # find the installers and run them iteratively

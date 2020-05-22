@@ -1,7 +1,4 @@
 alias reload!='. ~/.zshrc'
 alias vi='nvim'
-alias ls='ls --color=auto'
-alias myip='curl ifconfig.me'
-alias fixtime='sudo hwclock --hctosys'
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xlip -selection clipboard -o'
+alias extranjero='ssh -i ~/.ssh/personal_id_rsa tg@extranjero.gambtho.tech'
+alias cls='clear' # Good 'ol Clear Screen command

@@ -1,7 +1,17 @@
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
 
-#Stash your environment variables in ~/.localrc. This means they'll stay out
+# your project folder that we can `c [tab]` to
+export PROJECTS=~/workspace
+export ORACLE_HOME=/usr/local/Cellar/instantclient-basic/12.1.0.2.0/lib
+export DYLD_LIBRARY_PATH=$ORACLE_HOME
+export LD_LIBRARY_PATH=$ORACLE_HOME
+export JAVA_HOME=$(/usr/libexec/java_home)
+export SCALA_HOME=/usr/local/opt/scala/idea
+export CONSCRIPT_HOME="$HOME/.conscript"
+export PATH=$CONSCRIPT_HOME/bin:$PATH
+
+ #Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
 # you'll have access to them in your scripts.
 if [[ -a ~/.localrc ]]
@@ -26,12 +36,8 @@ do
 done
 
 # initialize autocomplete here, otherwise functions won't be loaded
-autoload -Uz compinit 
-if [[ -n ${ZSH}/.zcompdump(#qN.mh+24) ]]; then
-	compinit;
-else
-	compinit -C;
-fi;
+autoload -U compinit
+compinit
 
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}
@@ -49,9 +55,14 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-# export SDKMAN_DIR="~/.sdkman"
-# [[ -s "~/.sdkman/bin/sdkman-init.sh" ]] && source "~/.sdkman/bin/sdkman-init.sh"
+export PATH="$HOME/.yarn/bin:$PATH"
+eval "$(jenv init -)"
