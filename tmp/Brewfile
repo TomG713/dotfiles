@@ -8,22 +8,30 @@ tap "mas-cli/tap"
 tap "universal-ctags/universal-ctags"
 brew "ack"
 brew "readline"
-brew "python@3.8"
 brew "azure-cli"
+brew "clusterctl"
 brew "coreutils"
 brew "docker", link: false
+brew "python@3.10"
+brew "exercism"
+brew "gh"
 brew "git"
+brew "glib"
 brew "gnupg"
 brew "go"
 brew "openjdk"
 brew "gradle"
 brew "grc"
 brew "helm"
+brew "hugo"
+brew "python@3.8"
 brew "imagemagick"
 brew "jenv"
 brew "jq"
 brew "kubernetes-cli"
+brew "krew"
 brew "kustomize"
+brew "linkerd"
 brew "mas"
 brew "neovim"
 brew "node"
@@ -33,7 +41,10 @@ brew "ruby-build"
 brew "rbenv"
 brew "sbt"
 brew "scala"
+brew "staticcheck"
 brew "step"
+brew "strongswan"
+brew "terraform"
 brew "the_silver_searcher"
 brew "wget"
 brew "zsh"
@@ -51,9 +62,11 @@ cask "skype"
 cask "spectacle", args: { appdir: "/Applications" }
 cask "visual-studio-code", args: { appdir: "/Applications" }
 mas "1Password 7", id: 1333542190
+mas "Azure VPN Client", id: 1553936137
 mas "CleanMyMac X", id: 1339170533
 mas "DaisyDisk", id: 411643860
 mas "GarageBand", id: 682658836
+mas "HP Smart", id: 1474276998
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
