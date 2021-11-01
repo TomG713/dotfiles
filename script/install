@@ -4,17 +4,12 @@
 
 cd "$(dirname $0)"/..
 
-if test ! $(which brew)
-then
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-fi
-
 echo "-----------------------"
-echo "> updating with homebrew"
-brew update
-brew upgrade
-brew cleanup
-brew bundle dump --all --force --file=./tmp/Brewfile
+echo "> updating with apt"
+sudo apt update
+sudo apt upgrade -y
+sudo apt clean
+sudo apt autoremove --purge
 echo "-----------------------"
 
 # find the installers and run them iteratively

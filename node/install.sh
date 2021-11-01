@@ -1,6 +1,5 @@
-NODE_VERSION=14.1.0
-NVM_VERSION=0.35.3
-
+NODE_VERSION=17.0.1
+NVM_VERSION=0.39.0
 
 if test ! $(which yarn)
 then

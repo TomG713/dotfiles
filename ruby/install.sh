@@ -1,9 +1,10 @@
-RUBY_VERSION=3.0.0
+RUBY_VERSION=3.0.2
 
 if test ! $(which rbenv)
 then
   echo
   echo "Installing Ruby tools and Ruby ${RUBY_VERSION}"
+  # curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
   git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
   eval "$(rbenv init -)"
