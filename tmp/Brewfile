@@ -43,16 +43,20 @@ brew "sbt"
 brew "scala"
 brew "staticcheck"
 brew "step"
+brew "stern"
 brew "strongswan"
 brew "terraform"
 brew "the_silver_searcher"
+brew "watch"
 brew "wget"
 brew "zsh"
 brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
+cask "airtool"
 cask "alfred", args: { appdir: "/Applications" }
 cask "bartender", args: { appdir: "/Applications" }
 cask "docker", args: { appdir: "/Applications" }
 cask "dropbox", args: { appdir: "/Applications" }
+cask "firefox"
 cask "goland", args: { appdir: "/Applications" }
 cask "google-chrome", args: { appdir: "/Applications" }
 cask "iterm2", args: { appdir: "/Applications" }
@@ -63,7 +67,7 @@ cask "spectacle", args: { appdir: "/Applications" }
 cask "visual-studio-code", args: { appdir: "/Applications" }
 mas "1Password 7", id: 1333542190
 mas "Azure VPN Client", id: 1553936137
-mas "CleanMyMac X", id: 1339170533
+mas "CleanMyMac-MAS", id: 1339170533
 mas "DaisyDisk", id: 411643860
 mas "GarageBand", id: 682658836
 mas "HP Smart", id: 1474276998
@@ -71,4 +75,5 @@ mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
+mas "Tailscale", id: 1475387142
 mas "Todoist", id: 585829637

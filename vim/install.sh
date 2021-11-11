@@ -1,6 +1,6 @@
 echo "> validating vim install"
 
-NVIM_VERSION=0.4.3
+NVIM_VERSION=0.5.1
 
 if [ ! -d ~/.vim ]
   # then
