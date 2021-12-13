@@ -1,4 +1,4 @@
-GO_VERSION=1.16.7
+GO_VERSION=1.17.3
 
 if test ! $(which gvm)
 then

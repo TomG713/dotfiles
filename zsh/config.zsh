@@ -1,7 +1,9 @@
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 
-export GOPRIVATE=goms.io/aks/rp,goms.io/aks/rollout
+export GOPRIVATE="goms.io/aks/*,go.goms.io/aks/*"
+export GONOPROXY=none
+
 
 fpath=($ZSH/functions $fpath)
 
