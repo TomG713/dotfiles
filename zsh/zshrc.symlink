@@ -1,6 +1,9 @@
 # shortcut to this dotfiles path is $ZSH
+
 export ZSH=$HOME/.dotfiles
-export GO_VERSION=1.17.3
+export GO_VERSION=1.18.1
+export GOPATH=$HOME/go
+
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/workspace
 

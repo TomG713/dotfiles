@@ -12,8 +12,8 @@ brew "python@3.10"
 brew "azure-cli"
 brew "clusterctl"
 brew "coreutils"
-brew "docker", link: false
 brew "exercism"
+brew "fzf"
 brew "gh"
 brew "git"
 brew "glib"
@@ -34,6 +34,7 @@ brew "kustomize"
 brew "linkerd"
 brew "magic-wormhole"
 brew "mas"
+brew "maven"
 brew "neovim"
 brew "node"
 brew "nvm"
@@ -43,7 +44,8 @@ brew "ruby-build"
 brew "rbenv"
 brew "sbt"
 brew "scala"
-brew "skaffold", link: false
+brew "shellcheck"
+brew "skaffold"
 brew "staticcheck"
 brew "step"
 brew "stern"
@@ -58,16 +60,30 @@ brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
 cask "airtool"
 cask "alfred", args: { appdir: "/Applications" }
 cask "bartender", args: { appdir: "/Applications" }
-cask "docker", args: { appdir: "/Applications" }
+cask "docker"
 cask "dropbox", args: { appdir: "/Applications" }
 cask "firefox"
 cask "goland", args: { appdir: "/Applications" }
 cask "google-chrome", args: { appdir: "/Applications" }
 cask "iterm2", args: { appdir: "/Applications" }
 cask "java", args: { appdir: "/Applications" }
+cask "lens"
 cask "microsoft-edge"
+cask "postman"
 cask "skype"
 cask "spectacle", args: { appdir: "/Applications" }
 cask "visual-studio-code", args: { appdir: "/Applications" }
 cask "wireshark-chmodbpf"
-cask "wormhole"
+mas "1Password 7", id: 1333542190
+mas "Azure VPN Client", id: 1553936137
+mas "CleanMyMac-MAS", id: 1339170533
+mas "DaisyDisk", id: 411643860
+mas "GarageBand", id: 682658836
+mas "HP Smart", id: 1474276998
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "Magnet", id: 441258766
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Tailscale", id: 1475387142
+mas "Todoist", id: 585829637
