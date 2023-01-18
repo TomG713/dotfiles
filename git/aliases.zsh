@@ -14,3 +14,7 @@ alias gb='git branch'
 alias gs='git status -sbuno' # upgrade your git if -sb breaks for you. it's fun.
 alias gac='git add -A && git commit -m'
 alias ge='git-edit-new'
+
+function git-tags() {
+    git ls-remote --tags --sort='version:refname' --refs origin "$1"
+}

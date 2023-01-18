@@ -13,17 +13,16 @@ brew "readline"
 brew "python@3.10"
 brew "azure-cli"
 brew "bash"
+brew "glib"
 brew "clusterctl"
 brew "coreutils"
 brew "exercism"
 brew "fzf"
 brew "gh"
 brew "git"
-brew "glib"
 brew "gnu-sed"
 brew "gnupg"
 brew "go"
-brew "openjdk"
 brew "gradle"
 brew "grc"
 brew "helm"
@@ -36,16 +35,17 @@ brew "kind"
 brew "kubernetes-cli"
 brew "krew"
 brew "kustomize"
+brew "libyaml"
 brew "linkerd"
 brew "magic-wormhole"
 brew "mas"
+brew "openjdk"
 brew "maven"
 brew "neovim"
 brew "node"
 brew "nvm"
 brew "openjdk@11"
 brew "protobuf"
-brew "ruby-build"
 brew "rbenv"
 brew "sbt"
 brew "scala"
@@ -71,7 +71,6 @@ cask "firefox"
 cask "goland", args: { appdir: "/Applications" }
 cask "google-chrome", args: { appdir: "/Applications" }
 cask "iterm2", args: { appdir: "/Applications" }
-cask "java", args: { appdir: "/Applications" }
 cask "lens"
 cask "microsoft-edge"
 cask "postman"
@@ -80,11 +79,7 @@ cask "spectacle", args: { appdir: "/Applications" }
 cask "visual-studio-code", args: { appdir: "/Applications" }
 mas "1Password 7", id: 1333542190
 mas "Azure VPN Client", id: 1553936137
-mas "CleanMyMac-MAS", id: 1339170533
-mas "DaisyDisk", id: 411643860
-mas "GarageBand", id: 682658836
 mas "HP Smart", id: 1474276998
-mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Magnet", id: 441258766
 mas "Numbers", id: 409203825

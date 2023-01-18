@@ -1,4 +1,4 @@
-RUBY_VERSION=3.0.2
+RUBY_VERSION=3.2.0
 
 if test ! $(which rbenv)
 then
