@@ -1,9 +1,9 @@
 echo "> validating vim install"
 
-NVIM_VERSION=0.5.1
+NVIM_VERSION=0.9.1
 
 if [ ! -d ~/.vim ]
-  # then
+# then
 #  git clone https://github.com/luan/vimfiles ~/.vim
 #  pip3 install --upgrade neovim
 #  ~/.vim/bin/install
