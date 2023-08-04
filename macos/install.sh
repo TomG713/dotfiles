@@ -3,5 +3,8 @@
 # command line interface to it that we can use to just install everything, so
 # yeah, let's do that.
 
-echo "› updating mac software"
-softwareupdate -i -a
+if [ "$(uname)" == "Darwin" ]; then
+    echo "› updating mac software"
+    softwareupdate -i -a
+fi
+

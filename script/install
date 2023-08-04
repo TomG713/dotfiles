@@ -4,18 +4,45 @@
 
 cd "$(dirname $0)"/..
 
-if test ! $(which brew)
-then
+mac () {
+   if test ! $(which brew)
+   then
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+   fi
+
+   echo "-----------------------"
+   echo "> updating with homebrew"
+   brew update
+   brew upgrade
+   brew cleanup
+   brew bundle dump --all --force --file=./tmp/Brewfile
+   echo "-----------------------"
+
+   # find the installers and run them iteratively
+   find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+}
+
+linux () {
+    echo "-----------------------"
+    echo "> updating with apt"
+    sudo apt update
+    sudo apt upgrade
+    sudo apt autoremove
+    sudo apt autoclean
+    sudo apt install -y $(cat ./tmp/aptfile)
+    echo "-----------------------"
+    
+    # find the installers and run them iteratively
+    find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+}
+
+if [ "$(uname)" == "Darwin" ]; then
+    echo 'Detected Mac OS X'
+    mac        
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    # Do something under GNU/Linux platform
+    echo 'Detected Linux'
 fi
 
-echo "-----------------------"
-echo "> updating with homebrew"
-brew update
-brew upgrade
-brew cleanup
-brew bundle dump --all --force --file=./tmp/Brewfile
-echo "-----------------------"
 
-# find the installers and run them iteratively
-find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+
