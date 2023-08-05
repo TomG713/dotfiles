@@ -13,9 +13,9 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		echo 'Detected zsh: $ZSH_VERSION'
 	elif [ -n "$($SHELL -c 'echo $BASH_VERSION')" ]; then
 		echo 'Detected Bash switching to zsh'
-		chsh -s $(which zsh)
+		sudo chsh -s $(which zsh) $USER
 	else
 	  	echo 'No Zsh or Bash detected - switching to zsh'
-		chsh -s $(which zsh)
+		sudo chsh -s $(which zsh) $USER
 	fi
 fi
