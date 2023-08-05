@@ -1,4 +1,4 @@
-
+#!/usr/bin/env bash
 
 if [ "$(uname)" == "Darwin" ]; then
     if [ ! $(dscl . -read /Users/$USER UserShell | awk '{print $2}') == $(which zsh) ]; then

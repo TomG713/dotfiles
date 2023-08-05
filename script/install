@@ -25,15 +25,17 @@ mac () {
 linux () {
     echo "-----------------------"
     echo "> updating with apt"
-    sudo apt update
-    sudo apt upgrade
-    sudo apt autoremove
-    sudo apt autoclean
-    sudo apt install -y $(cat ./tmp/aptfile)
+    sudo apt update && \
+    sudo apt upgrade && \
+    sudo apt autoremove && \
+    sudo apt autoclean && \
+    sudo apt install -y $(cat ./linux/aptfile)
     echo "-----------------------"
     
     # find the installers and run them iteratively
     find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+
+    apt-mark showmanual > ./tmp/aptfile
 }
 
 if [ "$(uname)" == "Darwin" ]; then
@@ -42,6 +44,7 @@ if [ "$(uname)" == "Darwin" ]; then
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
     echo 'Detected Linux'
+    linux
 fi
 
 
