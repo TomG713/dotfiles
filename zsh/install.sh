@@ -10,7 +10,7 @@ if [ "$(uname)" == "Darwin" ]; then
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     echo 'Detected Linux - no login shell change'
 	if [ -n "$($SHELL -c 'echo $ZSH_VERSION')" ]; then
-		echo 'Detected zsh: $ZSH_VERSION'
+		echo 'Detected zsh: $(ZSH_VERSION)'
 	elif [ -n "$($SHELL -c 'echo $BASH_VERSION')" ]; then
 		echo 'Detected Bash switching to zsh'
 		echo 'sudo chsh -s $(which zsh) $USER'
