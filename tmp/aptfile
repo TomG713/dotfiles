@@ -120,6 +120,7 @@ mokutil
 ncurses-base
 ncurses-bin
 ncurses-term
+neovim
 nvme-cli
 openssh-server
 openssh-sftp-server
