@@ -1,3 +1,4 @@
+alias ls='ls --color=auto'
 alias reload!='. ~/.zshrc'
 alias vi='nvim'
 alias aksdev='~/go/src/goms.io/aks/rp/bin/aksdev'
