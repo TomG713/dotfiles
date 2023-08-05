@@ -10,7 +10,7 @@ then
   nvm use v${NODE_VERSION}
   npm install -g yarn
   yarn config set prefix /usr/local/
-  yarn global add create-react-app npm webpack yo jest mocha
+  yarn global add npm webpack yo jest mocha
 fi
 
 if test ! $(which yarn)
