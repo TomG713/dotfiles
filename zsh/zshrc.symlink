@@ -12,6 +12,7 @@ source $ZSH/oh-my-zsh.sh
 
 ##### prompt
 # oh-my-zsh overrides the prompt, so Pure must be activated after `source $ZSH/oh-my-zsh.sh`
+# seems to be required to work on linux, zplug generates errors
 fpath+=($HOME/.zsh/pure)
 autoload -U promptinit; promptinit
 prompt pure
