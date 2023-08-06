@@ -1,5 +1,13 @@
 # shortcut to this dotfiles path is $ZSH
 
+##### timer for troubleshooting
+# timer=$(($(gdate +%s%N)/1000000))
+# now=$(($(gdate +%s%N)/1000000))
+# elapsed=$(($now-$timer))
+# echo $elapsed":" $plugin
+### or unncomment and run zprof
+# zmodload zsh/zprof
+
 
 ###### ohmyzsh
 # https://github.com/ohmyzsh/ohmyzsh
@@ -50,7 +58,7 @@ if ! zplug check --verbose; then
     fi
 fi
 zplug load
-zplug update > /dev/null 
+# zplug update > /dev/null 
 #####
 
 ##### 
@@ -92,10 +100,4 @@ do
 done
 
 unset config_files
-
-timezsh() {
-  shell=${1-$SHELL}
-  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
-}
-
 

@@ -4,7 +4,7 @@
 
 nvm install node --latest-npm
 nvm use node
-echo "*****manually run nvm upgrade as needed******"
+# nvm upgrade - doesn't work in script
 
 if test ! $(which yarn)
 then
