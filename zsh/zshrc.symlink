@@ -12,8 +12,9 @@ source $ZSH/oh-my-zsh.sh
 
 ##### prompt
 # oh-my-zsh overrides the prompt, so Pure must be activated after `source $ZSH/oh-my-zsh.sh`
-# autoload -U promptinit; promptinit
-# prompt pure
+fpath+=($HOME/.zsh/pure)
+autoload -U promptinit; promptinit
+prompt pure
 #####
 
 ##### zplug 
@@ -25,7 +26,7 @@ zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-autosuggestions"
 
 # https://github.com/sindresorhus/pure
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+# zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 
 
 # https://github.com/mroth/evalcache

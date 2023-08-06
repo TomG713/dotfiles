@@ -8,6 +8,11 @@ ohmy () {
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 }
 
+pure () {
+	mkdir -p "$HOME/.zsh"
+	git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
+}
+
 if [ "$(uname)" == "Darwin" ]; then
     if [ ! $(dscl . -read /Users/$USER UserShell | awk '{print $2}') == $(which zsh) ]; then
 		if ! cat /etc/shells | grep --quiet $(which zsh); then
@@ -15,6 +20,7 @@ if [ "$(uname)" == "Darwin" ]; then
 		fi
 		echo "Setting login shell to zsh" && chsh -s $(which zsh)
 		ohmy
+		pure
 	    zplug
 	fi     
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
@@ -24,11 +30,13 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		echo 'Detected Bash switching to zsh'
 		echo 'please run sudo chsh -s $(which zsh) $USER'
 		ohmy
+		pure
 		zplug
 	else
 	  	echo 'No Zsh or Bash detected - switching to zsh'
 		echo 'please run sudo chsh -s $(which zsh) $USER'
 		ohmy
+		pure
 		zplug
 	fi
 fi
