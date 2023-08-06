@@ -1,30 +1,16 @@
-echo "> validating vim install"
+#!/usr/bin/env bash
 
-NVIM_VERSION=0.9.1
-
-if [ ! -d ~/.vim ]
-
+if [ ! -d ~/.vim_runtime ]
 then
-	pip install setuptools
-	pip3 install pynvim
-	pip2 install pynvim
-        git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-	vim +PluginInstall +qall
+	# https://github.com/amix/vimrc
+	echo "> installing vim settings"
+	git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+	sh ~/.vim_runtime/install_awesome_vimrc.sh
 fi
-echo "> completed"
 
-# then
-#  git clone https://github.com/luan/vimfiles ~/.vim
-#  pip3 install --upgrade neovim
-#  ~/.vim/bin/install
-# fi
-#~/.vim/bin/update
-# git clone --recursive https://github.com/jessfraz/.vim.git $HOME/.vim
-# ln -sf $HOME/.vim/vimrc $HOME/.vimrc
-# cd $HOME/.vim
-# curl vimfiles.luan.sh/install | FORCE=1 bash	
-# git submodule update --init
-# else
-# echo "> updating vim settings"
-# cd $HOME/.vim
-# make update 
+cd ~/.vim_runtime
+git reset --hard
+git clean -d --force
+git pull --rebase
+python update_plugins.py  # use python3 if python is unavailable
+

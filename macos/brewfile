@@ -44,7 +44,6 @@ brew "neovim"
 brew "node"
 brew "nvm"
 brew "openjdk@11"
-brew "pure"
 brew "rbenv"
 brew "sbt"
 brew "scala"
@@ -85,6 +84,7 @@ mas "Magnet", id: 441258766
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Slack", id: 803453959
+# mas "Tailscale", id: 1475387142
 mas "Todoist", id: 585829637
 vscode "aksdev.aksdev"
 vscode "dan-c-underwood.arm"

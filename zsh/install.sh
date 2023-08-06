@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
 
+zplug () {
+	curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+}
+
+ohmy () {
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+}
+
 if [ "$(uname)" == "Darwin" ]; then
     if [ ! $(dscl . -read /Users/$USER UserShell | awk '{print $2}') == $(which zsh) ]; then
 		if ! cat /etc/shells | grep --quiet $(which zsh); then
 			echo $(which zsh) | sudo tee -a /etc/shells
 		fi
 		echo "Setting login shell to zsh" && chsh -s $(which zsh)
+		ohmy
+	    zplug
 	fi     
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     echo 'Detected Linux - no login shell change'
@@ -14,8 +24,12 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	elif [ -n "$($SHELL -c 'echo $BASH_VERSION')" ]; then
 		echo 'Detected Bash switching to zsh'
 		echo 'sudo chsh -s $(which zsh) $USER'
+		ohmy
+		zplug
 	else
 	  	echo 'No Zsh or Bash detected - switching to zsh'
 		echo 'sudo chsh -s $(which zsh) $USER'
+		ohmy
+		zplug
 	fi
 fi

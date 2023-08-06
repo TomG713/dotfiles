@@ -12,10 +12,11 @@ mac () {
 
    echo "-----------------------"
    echo "> updating with homebrew"
+   brew bundle --file=./macos/brewfile
    brew update
    brew upgrade
    brew cleanup
-   brew bundle dump --all --force --file=./tmp/Brewfile
+   brew bundle dump --all --force --file=./tmp/brewfile
    echo "-----------------------"
 
    # find the installers and run them iteratively
@@ -26,24 +27,20 @@ linux () {
     echo "-----------------------"
     echo "> updating with apt"
     sudo apt update && \
+    sudo apt install -y $(cat ./linux/aptfile)
     sudo apt upgrade && \
     sudo apt autoremove && \
     sudo apt autoclean && \
-    sudo apt install -y $(cat ./linux/aptfile)
+    apt-mark showmanual > ./tmp/aptfile
     echo "-----------------------"
     
     # find the installers and run them iteratively
     find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
-
-    apt-mark showmanual > ./tmp/aptfile
 }
 
 if [ "$(uname)" == "Darwin" ]; then
-    echo 'Detected Mac OS X'
     mac        
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    # Do something under GNU/Linux platform
-    echo 'Detected Linux'
     linux
 fi
 

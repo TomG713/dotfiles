@@ -56,7 +56,9 @@ There's a few special files in the hierarchy.
 
 ## notes and links
 
-* cascadia code and night owl light?
-* evaluate vi customizations
-* https://github.com/luan/vimfiles/wiki/Luan's-Vim-Cheat-Sheet
 * https://htr3n.github.io/2018/07/faster-zsh/
+* https://blog.jonlu.ca/posts/speeding-up-zsh
+* https://blog.mattclemente.com/2020/06/26/oh-my-zsh-slow-to-load/
+* https://github.com/rupa/z/
+* https://github.com/jenv/jenv
+* https://github.com/pyenv/pyenv
