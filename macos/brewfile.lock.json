@@ -14,7 +14,7 @@
         "revision": "b1f0f2df00674db29e8ae1101e633dcd6172cd57"
       },
       "homebrew/cask-versions": {
-        "revision": "49469edb171c889346f9f233b2fbb4a609013b56"
+        "revision": "9d1c12069aae026e416c444686044be3b7f010f0"
       },
       "homebrew/services": {
         "revision": "ee0391aa26c451232d52419dfe349634341231aa"
@@ -2441,7 +2441,7 @@
       },
       "Slack": {
         "id": "803453959",
-        "version": "4.33.73"
+        "version": "4.33.84"
       },
       "Tailscale": {
         "id": "1475387142",

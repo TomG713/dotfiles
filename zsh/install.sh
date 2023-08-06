@@ -13,6 +13,13 @@ pure () {
 	git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 }
 
+updatepure () {
+	cd "$HOME/.zsh/pure"
+	git reset --hard
+	git clean -d --force
+	git pull --rebase
+}
+
 if [ "$(uname)" == "Darwin" ]; then
     if [ ! $(dscl . -read /Users/$USER UserShell | awk '{print $2}') == $(which zsh) ]; then
 		if ! cat /etc/shells | grep --quiet $(which zsh); then
@@ -40,3 +47,5 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		zplug
 	fi
 fi
+
+updatepure
