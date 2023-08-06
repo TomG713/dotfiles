@@ -18,17 +18,16 @@ if [ "$(uname)" == "Darwin" ]; then
 	    zplug
 	fi     
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    echo 'Detected Linux - no login shell change'
 	if [ -n "$($SHELL -c 'echo $ZSH_VERSION')" ]; then
-		echo 'using zsh'
+		echo ''
 	elif [ -n "$($SHELL -c 'echo $BASH_VERSION')" ]; then
 		echo 'Detected Bash switching to zsh'
-		echo 'sudo chsh -s $(which zsh) $USER'
+		echo 'please run sudo chsh -s $(which zsh) $USER'
 		ohmy
 		zplug
 	else
 	  	echo 'No Zsh or Bash detected - switching to zsh'
-		echo 'sudo chsh -s $(which zsh) $USER'
+		echo 'please run sudo chsh -s $(which zsh) $USER'
 		ohmy
 		zplug
 	fi
