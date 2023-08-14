@@ -147,6 +147,7 @@ python3-serial
 python3-setuptools
 python3-tz
 python3-urllib3
+ripgrep
 rustc
 sbsigntool
 secureboot-db
