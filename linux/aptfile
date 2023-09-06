@@ -149,8 +149,6 @@ secureboot-db
 shim-signed
 ssh-import-id
 sysvinit-utils
-tailscale
-tailscale-archive-keyring
 tcl
 tcl8.6
 tpm-udev
