@@ -67,6 +67,7 @@ libgpgme11
 libgudev-1.0-0
 libgusb2
 libjcat1
+libjson-c5
 libjson-glib-1.0-0
 libjson-glib-1.0-common
 libmbim-glib4
@@ -84,6 +85,7 @@ libssl-dev
 libtalloc2
 libtcl8.6
 libtevent0
+libtiff5
 libtool
 libtss2-esys-3.0.2-0
 libtss2-mu0
@@ -154,8 +156,6 @@ secureboot-db
 shim-signed
 ssh-import-id
 sysvinit-utils
-tailscale
-tailscale-archive-keyring
 tcl
 tcl8.6
 tpm-udev
