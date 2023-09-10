@@ -13,6 +13,7 @@ brew "python@3.10"
 brew "azure-cli"
 brew "bash"
 brew "glib"
+brew "python@3.11"
 brew "cfssl"
 brew "clusterctl"
 brew "coreutils"
@@ -21,6 +22,7 @@ brew "fzf"
 brew "gh"
 brew "git"
 brew "gnu-sed"
+brew "unbound"
 brew "gnupg"
 brew "go"
 brew "openjdk"
@@ -28,6 +30,7 @@ brew "gradle"
 brew "grc"
 brew "helm"
 brew "hugo"
+brew "python@3.9"
 brew "python@3.8"
 brew "imagemagick"
 brew "jenv"
@@ -45,6 +48,7 @@ brew "neovim"
 brew "node"
 brew "nvm"
 brew "openjdk@11"
+brew "openjdk@17"
 brew "pure"
 brew "rbenv"
 brew "ripgrep"
@@ -82,10 +86,7 @@ cask "spectacle", args: { appdir: "/Applications" }
 cask "visual-studio-code", args: { appdir: "/Applications" }
 mas "Azure VPN Client", id: 1553936137
 mas "HP Smart", id: 1474276998
-mas "Keynote", id: 409183694
 mas "Magnet", id: 441258766
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
 mas "Slack", id: 803453959
 mas "Todoist", id: 585829637
 vscode "aksdev.aksdev"
@@ -93,6 +94,7 @@ vscode "dan-c-underwood.arm"
 vscode "donjayamanne.githistory"
 vscode "felixfbecker.php-intellisense"
 vscode "GitHub.copilot"
+vscode "github.vscode-github-actions"
 vscode "golang.go"
 vscode "hashicorp.terraform"
 vscode "Ionide.Ionide-fsharp"

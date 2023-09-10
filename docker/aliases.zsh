@@ -1,7 +1,6 @@
 alias d='docker $*'
 alias d-c='docker-compose $*'
-alias docker-prune='docker rmi -f $(docker images -q) && docker rmi -f $(docker images -a -q) && docker rm -f $(docker ps -a -q) && docker volume rm -f $(docker volume ls -q)'
-
+alias docker-prune='docker system prune -f'
 function dockerenv () {
   local args=${@:-default}
   eval $(docker-machine env $args)
