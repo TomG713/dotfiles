@@ -133,6 +133,57 @@ install_dotfiles () {
   done
 }
 
+linux_prep () {
+    if test ! $(which docker)
+    then
+        echo "Installing docker"
+        sudo apt update
+        # Add Docker's official GPG key:
+        sudo apt-get install ca-certificates curl gnupg
+        sudo install -m 0755 -d /etc/apt/keyrings
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+        # Add the repository to Apt sources:
+        echo \
+        "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+        "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    fi
+    
+    if test ! $(which kubectl)
+    then
+        # notice hard coded 1.28
+        echo "Installing kubectl 1.28"
+        sudo apt update
+        sudo apt install -y apt-transport-https ca-certificates curl
+        curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+        echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+        sudo apt install kubectl
+    fi
+    
+    if test ! $(which az)
+    then
+        echo "Installing az cli"
+        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+    fi
+    if test ! $(which zsh)
+    then
+        echo "Installing zsh"
+        sudo apt update
+        sudo apt install zsh
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+        mkdir -p $HOME/.zsh
+        git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
+    fi
+}
+
+if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    linux_prep
+fi
+
 setup_gitconfig
 install_dotfiles
 
