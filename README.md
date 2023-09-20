@@ -62,3 +62,29 @@ There's a few special files in the hierarchy.
 * https://github.com/rupa/z/
 * https://github.com/jenv/jenv
 * https://github.com/pyenv/pyenv
+* https://github.com/romkatv/zsh-bench
+* https://github.com/Schniz/fnm
+
+```
+##### timer for troubleshooting
+timer=$(($(gdate +%s%N)/1000000))
+now=$(($(gdate +%s%N)/1000000))
+elapsed=$(($now-$timer))
+echo $elapsed":" $plugin
+### or unncomment and run zprof
+zmodload zsh/zprof
+```
+
+antidote
+==> benchmarking login shell of user thgamble ...
+creates_tty=0
+has_compsys=1
+has_syntax_highlighting=1
+has_autosuggestions=1
+has_git_prompt=0
+first_prompt_lag_ms=926.024
+first_command_lag_ms=968.778
+command_lag_ms=234.644
+input_lag_ms=21.577
+exit_time_ms=893.841
+

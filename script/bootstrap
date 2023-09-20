@@ -173,10 +173,6 @@ linux_prep () {
         echo "Installing zsh"
         sudo apt update
         sudo apt install zsh
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-        curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-        mkdir -p $HOME/.zsh
-        git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
     fi
 }
 
