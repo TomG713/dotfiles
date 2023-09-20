@@ -8,6 +8,7 @@ tap "isen-ng/dotnet-sdk-versions"
 tap "mas-cli/tap"
 tap "universal-ctags/universal-ctags"
 brew "ack"
+brew "antigen"
 brew "readline"
 brew "python@3.10"
 brew "azure-cli"
@@ -25,23 +26,22 @@ brew "gnu-sed"
 brew "unbound"
 brew "gnupg"
 brew "go"
+brew "golangci-lint"
 brew "openjdk"
 brew "gradle"
 brew "grc"
 brew "helm"
 brew "hugo"
-brew "python@3.9"
-brew "python@3.8"
-brew "imagemagick"
 brew "jenv"
 brew "jq"
 brew "kind"
 brew "kubernetes-cli"
 brew "krew"
 brew "kustomize"
+brew "python@3.9"
+brew "python@3.8"
 brew "libyaml"
 brew "linkerd"
-brew "magic-wormhole"
 brew "mas"
 brew "maven"
 brew "neovim"
@@ -49,7 +49,6 @@ brew "node"
 brew "nvm"
 brew "openjdk@11"
 brew "openjdk@17"
-brew "pure"
 brew "rbenv"
 brew "ripgrep"
 brew "sbt"
@@ -61,20 +60,14 @@ brew "step"
 brew "stern"
 brew "strongswan"
 brew "terraform"
-brew "the_silver_searcher"
 brew "watch"
 brew "wget"
 brew "yq"
 brew "zsh"
-brew "datawire/blackbird/telepresence"
 brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD"]
-cask "airtool"
-cask "alfred", args: { appdir: "/Applications" }
-cask "bartender", args: { appdir: "/Applications" }
 cask "docker"
 cask "dotnet-sdk6-0-400"
 cask "dropbox", args: { appdir: "/Applications" }
-cask "firefox"
 cask "goland", args: { appdir: "/Applications" }
 cask "google-chrome", args: { appdir: "/Applications" }
 cask "iterm2", args: { appdir: "/Applications" }
@@ -86,7 +79,11 @@ cask "spectacle", args: { appdir: "/Applications" }
 cask "visual-studio-code", args: { appdir: "/Applications" }
 mas "Azure VPN Client", id: 1553936137
 mas "HP Smart", id: 1474276998
+mas "Keynote", id: 409183694
 mas "Magnet", id: 441258766
+mas "Microsoft Remote Desktop", id: 1295203466
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
 mas "Slack", id: 803453959
 mas "Todoist", id: 585829637
 vscode "aksdev.aksdev"
