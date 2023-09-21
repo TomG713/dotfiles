@@ -25,3 +25,13 @@ fi
 # git pull
 # git submodule sync --recursive
 # git submodule update --init --recursive
+
+
+# case "$OSTYPE" in
+#   darwin*)  echo "Bootstrapping OSX" ;; 
+#   linux*)   linux_prep ;;
+#   bsd*)     echo "BSD" ;;
+#   msys*)    echo "WINDOWS" ;;
+#   cygwin*)  echo "ALSO WINDOWS" ;;
+#   *)        echo "unknown: $OSTYPE" ;;
+# esac

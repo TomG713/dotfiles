@@ -11,10 +11,10 @@
         "revision": "f3389cc6ab60a49ae01dfdd343beb937b1f48c55"
       },
       "homebrew/cask-fonts": {
-        "revision": "3fe096134d4c45c4455313b8585ebb6e307916d4"
+        "revision": "77a4a27c1fbdc87e0e3f3efeb7233527b1687908"
       },
       "homebrew/cask-versions": {
-        "revision": "a098918dfb930fbefff6f50b5421987447c3a41e"
+        "revision": "6e692379ad4edf59784a0d6d423d840d884911c9"
       },
       "homebrew/services": {
         "revision": "221a5b3ec3adc9fd37652015f1fa16933ed07a22"
@@ -163,6 +163,11 @@
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
           "files": {
+            "arm64_sonoma": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/azure-cli/blobs/sha256:2ae594535225f7ba35a3f083b22226101e2dd64eaed06826cdd8dd05beec055d",
+              "sha256": "2ae594535225f7ba35a3f083b22226101e2dd64eaed06826cdd8dd05beec055d"
+            },
             "arm64_ventura": {
               "cellar": ":any",
               "url": "https://ghcr.io/v2/homebrew/core/azure-cli/blobs/sha256:adb08ae8fff8c761c3a942c8445a4c476903d0b6e5ddd5b0df19cffee9150371",
@@ -177,6 +182,11 @@
               "cellar": ":any",
               "url": "https://ghcr.io/v2/homebrew/core/azure-cli/blobs/sha256:7d93177359ab0c90577aaf49886a22cbff22386b4669530542f5552acfa0860f",
               "sha256": "7d93177359ab0c90577aaf49886a22cbff22386b4669530542f5552acfa0860f"
+            },
+            "sonoma": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/azure-cli/blobs/sha256:a1614d6a51f93a076b9676fc2d0c1acff85ea0ccf4fd95e402e09c0564a4223a",
+              "sha256": "a1614d6a51f93a076b9676fc2d0c1acff85ea0ccf4fd95e402e09c0564a4223a"
             },
             "ventura": {
               "cellar": ":any",
@@ -2991,7 +3001,7 @@
         }
       },
       "postman": {
-        "version": "10.18.3",
+        "version": "10.18.4",
         "options": {
           "full_name": "postman"
         }
@@ -3056,7 +3066,7 @@
       },
       "Todoist": {
         "id": "585829637",
-        "version": "8.4.3"
+        "version": "8.7.0"
       },
       "Microsoft Remote Desktop": {
         "id": "1295203466",

@@ -44,5 +44,14 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     linux
 fi
 
+# case "$OSTYPE" in
+#   darwin*)  echo "Bootstrapping OSX" ;; 
+#   linux*)   linux_prep ;;
+#   bsd*)     echo "BSD" ;;
+#   msys*)    echo "WINDOWS" ;;
+#   cygwin*)  echo "ALSO WINDOWS" ;;
+#   *)        echo "unknown: $OSTYPE" ;;
+# esac
+
 
 

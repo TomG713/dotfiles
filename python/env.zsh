@@ -16,6 +16,3 @@ if type pyenv > /dev/null; then
         pyenv $@
     }
 fi
-
-#if which pyenv > /dev/null; then _evalcache "$(pyenv init -)"; fi
-#if which pyenv-virtualenv-init > /dev/null; then _evalcache "$(pyenv virtualenv-init -)"; fi

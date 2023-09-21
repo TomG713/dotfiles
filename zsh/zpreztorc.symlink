@@ -17,7 +17,7 @@ zstyle ':prezto:*:*' color 'yes'
 
 # Add additional directories to load prezto modules from
 # zstyle ':prezto:load' pmodule-dirs $HOME/.zprezto-contrib
-# zstyle ':prezto:load' pmodule-dirs $HOME/.zprezto-contrib
+zstyle ':prezto:load' pmodule-dirs $HOME/.dotfiles/plugins
 
 # Allow module overrides when pmodule-dirs causes module name collisions
 # zstyle ':prezto:load' pmodule-allow-overrides 'yes'
@@ -33,17 +33,16 @@ zstyle ':prezto:*:*' color 'yes'
 zstyle ':prezto:load' pmodule \
   'environment' \
   'terminal' \
-  'editor' \
-  'git' \
-  'node' \
-  'ruby' \
   'history' \
-  'directory' \
-  'spectrum' \
   'utility' \
   'completion' \
   'history-substring-search' \
+  'autosuggestions' \
   'prompt'
+
+#  'git' \
+  # 'node' \
+  # 'ruby' \
 
 #
 # Autosuggestions

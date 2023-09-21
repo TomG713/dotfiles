@@ -1,3 +1,6 @@
+# zmodload zsh/zprof # uncomment this and line at bottom to profile
+# also https://github.com/romkatv/zsh-bench
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -15,6 +18,8 @@ fi
 
 export ZSH=$HOME/.dotfiles
 export DOTFILES=$HOME/.dotfiles
+export NVM_LAZY_LOAD=true
+export NVM_COMPLETION=true
 
 typeset -U config_files
 config_files=($DOTFILES/**/*.zsh)
@@ -50,3 +55,5 @@ unset config_files
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# zprof 
