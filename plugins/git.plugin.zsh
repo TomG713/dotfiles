@@ -1,11 +1,6 @@
 
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh
-
-
-# Functions Current
-# (sorted alphabetically by function name)
-# (order should follow README)
-
+# simplified 
 
 # We wrap in a local function instead of exporting the variable directly in
 # order to avoid interfering with manually-run git commands by the user.
@@ -55,21 +50,6 @@ function grename() {
   fi
 }
 
-#
-# Functions Work in Progress (WIP)
-# (sorted alphabetically by function name)
-# (order should follow README)
-#
-
-
-#
-# Aliases
-# (sorted alphabetically by command)
-# (order should follow README)
-# (in some cases force the alisas order to match README, like for example gke and gk)
-#
-
-alias grt='cd "$(git rev-parse --show-toplevel || echo .)"'
 
 function ggpnp() {
   if [[ "$#" == 0 ]]; then
@@ -80,56 +60,14 @@ function ggpnp() {
 }
 compdef _git ggpnp=git-checkout
 
-alias ggpur='ggu'
 alias g='git'
 alias ga='git add'
 alias gaa='git add --all'
-alias gapa='git add --patch'
-alias gau='git add --update'
-alias gav='git add --verbose'
-alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign --message "--wip-- [skip ci]"'
-alias gam='git am'
-alias gama='git am --abort'
-alias gamc='git am --continue'
-alias gamscp='git am --show-current-patch'
-alias gams='git am --skip'
-alias gap='git apply'
-alias gapt='git apply --3way'
-alias gbs='git bisect'
-alias gbsb='git bisect bad'
-alias gbsg='git bisect good'
-alias gbsn='git bisect new'
-alias gbso='git bisect old'
-alias gbsr='git bisect reset'
-alias gbss='git bisect start'
-alias gbl='git blame -w'
-alias gb='git branch'
-alias gba='git branch --all'
-alias gbd='git branch --delete'
-alias gbD='git branch --delete --force'
-alias gbda='git branch --no-color --merged | command grep -vE "^([+*]|\s*($(git_main_branch)|$(git_develop_branch))\s*$)" | command xargs git branch --delete 2>/dev/null'
-alias gbgd='LANG=C git branch --no-color -vv | grep ": gone\]" | awk '"'"'{print $1}'"'"' | xargs git branch -d'
-alias gbgD='LANG=C git branch --no-color -vv | grep ": gone\]" | awk '"'"'{print $1}'"'"' | xargs git branch -D'
-alias gbnm='git branch --no-merged'
-alias gbr='git branch --remote'
-alias ggsup='git branch --set-upstream-to=origin/$(git_current_branch)'
-alias gbg='LANG=C git branch -vv | grep ": gone\]"'
-alias gco='git checkout'
-alias gcor='git checkout --recurse-submodules'
-alias gcb='git checkout -b'
-alias gcd='git checkout $(git_develop_branch)'
-alias gcm='git checkout $(git_main_branch)'
-alias gcp='git cherry-pick'
-alias gcpa='git cherry-pick --abort'
-alias gcpc='git cherry-pick --continue'
-alias gclean='git clean --interactive -d'
-alias gcl='git clone --recurse-submodules'
 
-function gccd() {
-  command git clone --recurse-submodules "$@"
-  [[ -d "$_" ]] && cd "$_" || cd "${${_:t}%.git}"
-}
-compdef _git gccd=git-clone
+
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gcm='git checkout $(git_main_branch)'
 
 alias gcam='git commit --all --message'
 alias gcmsg='git commit --message'
@@ -138,17 +76,8 @@ alias gcf='git config --list'
 
 alias gdup='git diff @{upstream}'
 
-function gdnolock() {
-  git diff "$@" ":(exclude)package-lock.json" ":(exclude)*.lock"
-}
-compdef _git gdnolock=git-diff
-
-alias gdt='git diff-tree --no-commit-id --name-only -r'
 alias gf='git fetch'
-# --jobs=<n> was added in git 2.8
-is-at-least 2.8 "$git_version" \
-  && alias gfa='git fetch --all --prune --jobs=10' \
-  || alias gfa='git fetch --all --prune'
+alias gfa='git fetch --all --prune --jobs=10'
 alias gfo='git fetch origin'
 
 alias glgm='git log --graph --max-count=10'
@@ -169,10 +98,6 @@ function ggu() {
   git pull --rebase origin "${b:=$1}"
 }
 compdef _git ggu=git-checkout
-
-alias gupom='git pull --rebase origin $(git_main_branch)'
-alias gupomi='git pull --rebase=interactive origin $(git_main_branch)'
-alias ggpull='git pull origin "$(git_current_branch)"'
 
 function ggl() {
   if [[ "$#" != 0 ]] && [[ "$#" != 1 ]]; then
@@ -205,7 +130,6 @@ function ggfl() {
 }
 compdef _git ggfl=git-checkout
 
-
 function ggp() {
   if [[ "$#" != 0 ]] && [[ "$#" != 1 ]]; then
     git push origin "${*}"
@@ -228,5 +152,7 @@ alias groh='git reset origin/$(git_current_branch) --hard'
 alias gss='git status --short'
 alias gsb='git status --short --branch'
 
+# not from plugin, clean all the things
+alias gclean='git remote prune origin && git reflog expire --expire=now --all && git gc --prune=now --aggressive && git branch | grep -v "master" | xargs git branch -D'
 
 unset git_version
