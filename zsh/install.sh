@@ -18,3 +18,10 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		echo 'please run sudo chsh -s $(which zsh) $USER'
 	fi
 fi
+
+
+# update prezto
+# cd $ZPREZTODIR
+# git pull
+# git submodule sync --recursive
+# git submodule update --init --recursive
