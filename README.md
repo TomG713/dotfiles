@@ -77,6 +77,7 @@ zmodload zsh/zprof
 
 
 ```
+commit - 03791eb
 ==> benchmarking login shell of user thgamble ...
 creates_tty=0
 has_compsys=1
