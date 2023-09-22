@@ -6,13 +6,6 @@ alias akge='aks-prod-tools kubectl -c $c -p env && kubectl cluster-info && kubec
 alias klies="k get po --all-namespaces -o json | jq -r '.items[] | select(.status.phase != \"Running\" or ([ .status.conditions[] | select(.type == \"Ready\" and .status == \"False\") ] | length ) == 1 ) | \"k -n \" + .metadata.namespace + \" delete po \" + .metadata.name'"
 alias kexec="aks-prod-tools ssh -c $c --exec "
 
-function ee() {
-    echo "Fixing linkerd deployment timeout and cpu limits..."
-    kubectl get deployments -n linkerd -o name | xargs -I {} sh -c 'kubectl get {} -n linkerd -o yaml | sed -e "s/timeoutSeconds: 1/timeoutSeconds: 10/g" -e "s/periodSeconds: 10/periodSeconds: 15/g" -e "s/cpu: 200m/cpu: 300m/g" | kubectl apply -f -'
-}
-
-
-
 function icm {
   if [[ -z "${1}" ]]; then
     echo -e "Enter full ICM title string: \c"
@@ -140,18 +133,6 @@ fi
 alias kbroken='kubectl get pods --all-namespaces -o wide | grep -v Running'
 alias kdelete='kubectl delete pods --field-selector status.phase!=Running --all-namespaces'
 
-
-function kwhich {
-    if [[ -z ${KUBECONFIG} ]]; then
-      KUBECONFIG=~/.kube/config
-    fi
-    if [[ -f ${KUBECONFIG} ]]; then
-      echo $(yq eval '.clusters[0].cluster.server' ${KUBECONFIG} | sed 's/https:\/\///' | cut -d "." -f1)
-    else
-      echo "no kube config"
-    fi
-}
-
 if (( ! $+commands[kubectl] )); then
   return
 fi
@@ -166,6 +147,25 @@ fi
 
 kubectl completion zsh 2> /dev/null >| "$ZSH_CACHE_DIR/completions/_kubectl" &|
 
+# Notes
+# 
 #kubectl -n {ns} get secret kubeconfig-file -o json | jq -r '.data."kubeconfig.yaml"' | base64 -d > config
 # change kubeconfig serverurl to cluster fqdn
 # kubectl --kubeconfig=config ...
+
+# function ee() {
+#     echo "Fixing linkerd deployment timeout and cpu limits..."
+#     kubectl get deployments -n linkerd -o name | xargs -I {} sh -c 'kubectl get {} -n linkerd -o yaml | sed -e "s/timeoutSeconds: 1/timeoutSeconds: 10/g" -e "s/periodSeconds: 10/periodSeconds: 15/g" -e "s/cpu: 200m/cpu: 300m/g" | kubectl apply -f -'
+# }
+
+
+# backup of p10k custom prompt segment
+# function prompt_my_which_k8s {
+#   if [[ -z ${KUBECONFIG} ]]; then
+#     KUBECONFIG=~/.kube/config
+#   fi
+#   if [[ -f ${KUBECONFIG} ]]; then
+#     local server=$(yq eval '.clusters[0].cluster.server' ${KUBECONFIG} | sed 's/https:\/\///' | cut -d "." -f1)
+#   fi
+#   p10k segment -s $server -i '⭐' -f blue -t $server
+# }  

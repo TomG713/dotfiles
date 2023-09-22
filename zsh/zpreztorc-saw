@@ -1,11 +1,8 @@
-# Color output (auto set to 'no' on dumb terminals).
 zstyle ':prezto:*:*' color 'yes'
 
 # git plugin
 zstyle ':prezto:load' pmodule-dirs $HOME/.dotfiles/plugins
 
-# Set the Prezto modules to load (browse modules).
-# The order matters.
 zstyle ':prezto:load' pmodule \
   'environment' \
   'terminal' \
@@ -17,15 +14,10 @@ zstyle ':prezto:load' pmodule \
   'prompt' \
   'history-substring-search' 
 
-
-# zstyle ':prezto:module:editor' key-bindings 'vi'
-
 zstyle :prezto:module:prompt theme powerlevel10k
 
-# Set the SSH identities to load into the agent.
-zstyle ':prezto:module:ssh:load' identities 'id_rsa' # 'id_rsa2' 'id_github'
+# zstyle ':prezto:module:ssh:load' identities 'id_rsa' # 'id_rsa2' 'id_github'
 
-# Auto set the tab and window titles.
 zstyle ':prezto:module:terminal' auto-title 'yes'
 
 # Set the window title format.

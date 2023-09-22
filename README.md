@@ -74,3 +74,18 @@ echo $elapsed":" $plugin
 ### or unncomment and run zprof
 zmodload zsh/zprof
 ```
+
+
+```
+==> benchmarking login shell of user thgamble ...
+creates_tty=0
+has_compsys=1
+has_syntax_highlighting=0
+has_autosuggestions=1
+has_git_prompt=1
+first_prompt_lag_ms=43.572
+first_command_lag_ms=513.988
+command_lag_ms=46.869
+input_lag_ms=6.292
+exit_time_ms=311.719
+```
