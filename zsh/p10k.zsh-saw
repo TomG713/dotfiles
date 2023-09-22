@@ -102,7 +102,7 @@
     if [[ -f ${KUBECONFIG} ]]; then
       local server=$(yq eval '.clusters[0].cluster.server' ${KUBECONFIG} | sed 's/https:\/\///' | cut -d "." -f1)
     fi
-    p10k segment -s $server -i '⭐' -f blue -t ${size[1]}$server
+    p10k segment -s $server -i '⭐' -f blue -t $server
   }  
 
 
