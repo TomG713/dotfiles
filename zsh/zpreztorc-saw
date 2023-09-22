@@ -14,10 +14,11 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'history-substring-search' \
   'autosuggestions' \
-  'prompt'
+  'prompt' \
+  'history-substring-search' 
 
 
-zstyle ':prezto:module:editor' key-bindings 'vi'
+# zstyle ':prezto:module:editor' key-bindings 'vi'
 
 zstyle :prezto:module:prompt theme powerlevel10k
 

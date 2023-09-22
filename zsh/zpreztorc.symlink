@@ -38,7 +38,8 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'history-substring-search' \
   'autosuggestions' \
-  'prompt'
+  'prompt' \
+  'history-substring-search' 
 
 
 # Set the query found color.
@@ -57,7 +58,7 @@ zstyle ':prezto:load' pmodule \
 #
 
 # Set the key mapping style to 'emacs' or 'vi'.
-zstyle ':prezto:module:editor' key-bindings 'vi'
+# zstyle ':prezto:module:editor' key-bindings 'vi'
 
 # Auto convert .... to ../..
 # zstyle ':prezto:module:editor' dot-expansion 'yes'
