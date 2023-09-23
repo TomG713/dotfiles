@@ -1,3 +1,5 @@
+tap "dagger/tap"
+tap "datawire/blackbird"
 tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
@@ -30,18 +32,16 @@ brew "gradle"
 brew "grc"
 brew "helm"
 brew "hugo"
-brew "python@3.9"
-brew "python@3.8"
-# brew "imagemagick"
 brew "jenv"
 brew "jq"
 brew "kind"
 brew "kubernetes-cli"
 brew "krew"
 brew "kustomize"
+brew "python@3.9"
+brew "python@3.8"
 brew "libyaml"
 brew "linkerd"
-# brew "magic-wormhole"
 brew "mas"
 brew "maven"
 brew "neovim"
@@ -78,7 +78,7 @@ cask "skype"
 cask "spectacle", args: { appdir: "/Applications" }
 cask "visual-studio-code", args: { appdir: "/Applications" }
 mas "Azure VPN Client", id: 1553936137
-mas "Keynote", id: 409183694
+mas "HP Smart", id: 1474276998
 mas "Magnet", id: 441258766
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Slack", id: 803453959
@@ -88,6 +88,7 @@ vscode "dan-c-underwood.arm"
 vscode "donjayamanne.githistory"
 vscode "felixfbecker.php-intellisense"
 vscode "GitHub.copilot"
+vscode "GitHub.copilot-chat"
 vscode "github.vscode-github-actions"
 vscode "golang.go"
 vscode "hashicorp.terraform"
