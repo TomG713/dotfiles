@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 if test ! $(which ktx)
 then 
 	echo "Installing ktx"

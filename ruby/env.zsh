@@ -1,4 +1,4 @@
-
+# TODO: make this work in linux again
 if [[ "$OSTYPE" == "darwin*" ]]; then 
   	if type rbenv &> /dev/null; then
     	local RBENV_SHIMS="${RBENV_ROOT:-${HOME}/.rbenv}/shims"

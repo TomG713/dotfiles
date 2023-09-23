@@ -19,13 +19,15 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	fi
 fi
 
+[[ -d ${ZDOTDIR:-~}/.zprezto ]] ||
 
-# update prezto
-# cd $ZPREZTODIR
-# git pull
-# git submodule sync --recursive
-# git submodule update --init --recursive
-
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+	cd $ZPREZTODIR
+	git pull
+	git submodule sync --recursive
+	git submodule update --init --recursive
+fi
 
 # case "$OSTYPE" in
 #   darwin*)  echo "Bootstrapping OSX" ;; 

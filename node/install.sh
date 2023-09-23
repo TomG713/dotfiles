@@ -1,10 +1,11 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+source $DOTFILES/plugins/nvm.plugin.zsh
 
 nvm install node --latest-npm
 nvm use node
-# nvm upgrade - doesn't work in script
+
+nvm upgrade
 
 if test ! $(which yarn)
 then

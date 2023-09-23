@@ -41,13 +41,11 @@ There's a few special files in the hierarchy.
 
 - **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
   available everywhere.
-- **packages.txt**: This is a list of applications for aptto install: Might want to edit this file before running any initial setup.
+- **linux/aptfile or mac/brewfile**: This is a list of applications to install: Might want to edit this file before running any initial setup.
 - **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
   environment.
 - **topic/path.zsh**: Any file named `path.zsh` is loaded first and is
   expected to setup `$PATH` or similar.
-- **topic/completion.zsh**: Any file named `completion.zsh` is loaded
-  last and is expected to setup autocomplete.
 - **topic/install.sh**: Any file named `install.sh` is executed when you run `script/install`. To avoid being loaded automatically, its extension is `.sh`, not `.zsh`.
 - **topic/\*.symlink**: Any file ending in `*.symlink` gets symlinked into
   your `$HOME`. This is so you can keep all of those versioned in your dotfiles
@@ -73,20 +71,19 @@ elapsed=$(($now-$timer))
 echo $elapsed":" $plugin
 ### or unncomment and run zprof
 zmodload zsh/zprof
+# zprof at end of file
 ```
 
-
 ```
-commit - 03791eb
-==> benchmarking login shell of user thgamble ...
+==> benchmarking login shell of user gambtho ...
 creates_tty=0
 has_compsys=1
 has_syntax_highlighting=0
 has_autosuggestions=1
-has_git_prompt=1
-first_prompt_lag_ms=43.572
-first_command_lag_ms=513.988
-command_lag_ms=46.869
-input_lag_ms=6.292
-exit_time_ms=311.719
+has_git_prompt=0
+first_prompt_lag_ms=37.364
+first_command_lag_ms=302.409
+command_lag_ms=45.020
+input_lag_ms=7.390
+exit_time_ms=123.721
 ```

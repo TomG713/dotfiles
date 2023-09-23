@@ -1,4 +1,7 @@
+# https://github.com/lukechilds/zsh-nvm
+
 ZSH_NVM_DIR=${0:a:h}
+export NVM_LAZY_LOAD=true
 
 [[ -z "$NVM_DIR" ]] && export NVM_DIR="$HOME/.nvm"
 
