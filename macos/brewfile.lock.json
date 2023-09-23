@@ -14,7 +14,7 @@
         "revision": "77a4a27c1fbdc87e0e3f3efeb7233527b1687908"
       },
       "homebrew/cask-versions": {
-        "revision": "b0082e83a38cb33a7639d5e05bf5909b00a7de53"
+        "revision": "07ea045b8cd0524c0e3cd3cd8c96a72ea51ee16b"
       },
       "homebrew/services": {
         "revision": "221a5b3ec3adc9fd37652015f1fa16933ed07a22"
@@ -1999,6 +1999,11 @@
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
           "files": {
+            "arm64_sonoma": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/staticcheck/blobs/sha256:687dbae190708996143671cfd2a63fe554ea28a2e1fd6987a5e10c853c684c07",
+              "sha256": "687dbae190708996143671cfd2a63fe554ea28a2e1fd6987a5e10c853c684c07"
+            },
             "arm64_ventura": {
               "cellar": ":any_skip_relocation",
               "url": "https://ghcr.io/v2/homebrew/core/staticcheck/blobs/sha256:2ae6211403749353bdd5654d5f13b8666b58e6563aa60dff6e024e8429878cfe",
@@ -2013,6 +2018,11 @@
               "cellar": ":any_skip_relocation",
               "url": "https://ghcr.io/v2/homebrew/core/staticcheck/blobs/sha256:bc0680cbc94e68fccdacf9464061cfe78a613c5abc1c8c4f1791f429be9cd6db",
               "sha256": "bc0680cbc94e68fccdacf9464061cfe78a613c5abc1c8c4f1791f429be9cd6db"
+            },
+            "sonoma": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/staticcheck/blobs/sha256:7e68cb01a42bee54283787f4e9f49049ceb4303fc53913fbce98b14243f590c6",
+              "sha256": "7e68cb01a42bee54283787f4e9f49049ceb4303fc53913fbce98b14243f590c6"
             },
             "ventura": {
               "cellar": ":any_skip_relocation",
@@ -2947,7 +2957,7 @@
         }
       },
       "dropbox": {
-        "version": "182.4.6427",
+        "version": "183.4.7058",
         "options": {
           "args": {
             "appdir": "/Applications"
@@ -2989,19 +2999,19 @@
         }
       },
       "lens": {
-        "version": "2023.9.191233",
+        "version": "2023.9.221258",
         "options": {
           "full_name": "lens"
         }
       },
       "microsoft-edge": {
-        "version": "117.0.2045.35,8ebcf82f-a7fc-4032-a058-a3d90b9dda37",
+        "version": "117.0.2045.40,8feaa3f8-a62f-428e-9afe-b3bb7ae236d1",
         "options": {
           "full_name": "microsoft-edge"
         }
       },
       "postman": {
-        "version": "10.18.4",
+        "version": "10.18.6",
         "options": {
           "full_name": "postman"
         }
