@@ -67,7 +67,7 @@
     #luaenv                  # lua version from luaenv (https://github.com/cehoffman/luaenv)
     #jenv                    # java version from jenv (https://github.com/jenv/jenv)
     #plenv                   # perl version from plenv (https://github.com/tokuhirom/plenv)
-    3perlbrew                # perl version from perlbrew (https://github.com/gugod/App-perlbrew)
+    #3perlbrew                # perl version from perlbrew (https://github.com/gugod/App-perlbrew)
     #phpenv                  # php version from phpenv (https://github.com/phpenv/phpenv)
     #scalaenv                # scala version from scalaenv (https://github.com/scalaenv/scalaenv)
     #haskell_stack           # haskell version from stack (https://haskellstack.org/)
@@ -76,7 +76,7 @@
     # terraform_version     # terraform version (https://www.terraform.io)
     azure                   # azure account name (https://docs.microsoft.com/en-us/cli/azure)
     # toolbox                 # toolbox name (https://github.com/containers/toolbox)
-    context                 # user@hostname
+    # context                 # user@hostname
     # vim_shell               # vim shell indicator (:sh)
     # midnight_commander      # midnight commander shell (https://midnight-commander.org/)
     # vpn_ip                # virtual private network indicator
@@ -101,8 +101,8 @@
     fi
     if [[ -f ${KUBECONFIG} ]]; then
       local server=$(yq eval '.clusters[0].cluster.server' ${KUBECONFIG} | sed 's/https:\/\///' | cut -d "." -f1)
+      p10k segment -s $server -i '⭐' -f blue -t $server
     fi
-    p10k segment -s $server -i '⭐' -f blue -t $server
   }  
 
 
