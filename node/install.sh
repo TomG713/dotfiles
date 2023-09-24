@@ -7,20 +7,17 @@ nvm use node
 
 nvm upgrade
 
-if test ! $(which yarn)
+if ! (( $+commands[yarn] ))
 then
   npm install -g yarn
   yarn config set prefix /usr/local/
   yarn global add npm webpack yo jest mocha
-fi
-
-if test ! $(which yarn)
-then
-  ## validate if needed 
+else
   npm install npm@latest -g
   npm -g update yarn
   yarn global upgrade --latest
   npm -g update
 fi
+
 
 
