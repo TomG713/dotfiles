@@ -124,7 +124,7 @@ link_file () {
 install_dotfiles () {
   info 'installing dotfiles'
 
-  mdkir -p $DOTFILES_ROOT/tmp
+  mkdir -p $DOTFILES_ROOT/tmp
   touch $DOTFILES_ROOT/tmp/aptfile
   touch $DOTFILES_ROOT/tmp/brewfile
 
