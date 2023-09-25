@@ -16,8 +16,7 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'history-substring-search' \
   'autosuggestions' \
-  'prompt' \
-  'history-substring-search' 
+  'prompt'
 
 # Set the prompt theme to load.
 zstyle :prezto:module:prompt theme powerlevel10k

@@ -11,8 +11,7 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'history-substring-search' \
   'autosuggestions' \
-  'prompt' \
-  'history-substring-search' 
+  'prompt'
 
 zstyle :prezto:module:prompt theme powerlevel10k
 

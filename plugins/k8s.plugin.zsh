@@ -1,4 +1,5 @@
 #https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/kubectl/kubectl.plugin.zsh
+
 if (( ! $+commands[kubectl] )); then
   return
 fi
@@ -12,6 +13,8 @@ if [[ ! -f "$ZSH_CACHE_DIR/completions/_kubectl" ]]; then
 fi
 
 kubectl completion zsh 2> /dev/null >| "$ZSH_CACHE_DIR/completions/_kubectl" &|
+alias k=kubectl
+complete -o default -F __start_kubectl k
 
 # # This command is used a LOT both below and in daily life
 # alias k=kubectl
