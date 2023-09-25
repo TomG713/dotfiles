@@ -1,7 +1,7 @@
 zstyle ':prezto:*:*' color 'yes'
 
 # git plugin
-zstyle ':prezto:load' pmodule-dirs $HOME/.dotfiles/plugins
+zstyle ':prezto:load' pmodule-dirs ${HOME}/.dotfiles/plugins
 
 zstyle ':prezto:load' pmodule \
   'environment' \
