@@ -18,8 +18,9 @@ then
         jenv add /usr/local/Cellar/openjdk/${BREW_LATEST}
         jenv global ${BREW_LATEST}
     elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-        jenv add "$(/usr/lib/jvm/java-${APT_DEFAULT}-openjdk-amd64)"
-        jenv add "$(/usr/lib/jvm/java-${APT_LATEST}-openjdk-amd64)"
+        #jenv add "$(/usr/lib/jvm/java-{APT_DEFAULT}-openjdk-amd64)"
+        #jenv add "$(/usr/lib/jvm/java-{APT_LATEST}-openjdk-amd64)"
         jenv global ${APT_LATEST}
+	jenv add
     fi 
 fi
