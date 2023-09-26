@@ -29,6 +29,7 @@ efibootmgr
 file
 findutils
 fwupd-signed
+fzf
 g++
 gawk
 gcc
