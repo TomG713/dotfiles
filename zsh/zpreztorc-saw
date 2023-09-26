@@ -3,6 +3,7 @@ zstyle ':prezto:*:*' color 'yes'
 # git plugin
 zstyle ':prezto:load' pmodule-dirs ${HOME}/.dotfiles/plugins
 
+# Set the Prezto modules to load - order is important
 zstyle ':prezto:load' pmodule \
   'environment' \
   'terminal' \
@@ -12,6 +13,7 @@ zstyle ':prezto:load' pmodule \
   'history-substring-search' \
   'autosuggestions' \
   'prompt'
+
 
 zstyle :prezto:module:prompt theme powerlevel10k
 
