@@ -1,5 +1,7 @@
 #https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/kubectl/kubectl.plugin.zsh
 
+export ZSH_CACHE_DIR="$ZSH/cache/"
+
 if (( ! $+commands[kubectl] )); then
   return
 fi

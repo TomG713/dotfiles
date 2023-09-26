@@ -1,3 +1,4 @@
 tmp/
+cache/
 macos/brewfile.lock.json
 git/gitconfig.local.symlink
