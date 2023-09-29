@@ -21,7 +21,7 @@ fi
 
 [[ -d ${ZDOTDIR:-~}/.zprezto ]] ||
 
-# Source Prezto.
+# update prezto
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 	cd $ZPREZTODIR
 	git pull
