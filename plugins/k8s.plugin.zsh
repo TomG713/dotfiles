@@ -18,9 +18,6 @@ kubectl completion zsh 2> /dev/null >| "$ZSH_CACHE_DIR/completions/_kubectl" &|
 alias k=kubectl
 complete -o default -F __start_kubectl k
 
-# # This command is used a LOT both below and in daily life
-# alias k=kubectl
-
 # # Execute a kubectl command against all namespaces
 # alias kca='_kca(){ kubectl "$@" --all-namespaces;  unset -f _kca; }; _kca'
 
@@ -29,15 +26,6 @@ complete -o default -F __start_kubectl k
 
 # # Drop into an interactive terminal on a container
 # alias keti='kubectl exec -t -i'
-
-# # Manage configuration quickly to switch contexts between local, dev ad staging.
-# alias kcuc='kubectl config use-context'
-# alias kcsc='kubectl config set-context'
-# alias kcdc='kubectl config delete-context'
-# alias kccc='kubectl config current-context'
-
-# # List all contexts
-# alias kcgc='kubectl config get-contexts'
 
 # # General aliases
 # alias kdel='kubectl delete'

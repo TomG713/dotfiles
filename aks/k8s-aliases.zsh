@@ -156,3 +156,8 @@ alias kdelete='kubectl delete pods --field-selector status.phase!=Running --all-
 #   fi
 #   p10k segment -s $server -i '⭐' -f blue -t $server
 # }  
+ 
+#  curl -XPUT -H "Content-type: application/json" --data "{}" "localhost:20081/{CLUSTER RESOURCE ID}"?api-version=2023-04-01
+# az login
+# aks-prod-tools kubectl -c {underlay}
+# kubectl port-forward -n {frontend} {svc/frontend} 20081:service
