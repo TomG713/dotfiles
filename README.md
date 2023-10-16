@@ -52,7 +52,14 @@ There's a few special files in the hierarchy.
   but still keep those autoloaded files in your home directory. These get
   symlinked in when you run `script/bootstrap`.
 
+## possible todo
+
+* remove pretzo
+* https://github.com/ericmurphyxyz/dotfiles
+
+
 ## notes and links
+
 
 * https://htr3n.github.io/2018/07/faster-zsh/
 * https://blog.jonlu.ca/posts/speeding-up-zsh
