@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-# needs testing
 
-export GO_VERSION=1.21.3
+export GO_VERSION=1.21.4
 
 if test ! $(which go)
 then
@@ -16,4 +15,13 @@ then
     rm ${gofile}
     export PATH=$PATH:/usr/local/go/bin
     go version
+else 
+    go version | grep $GO_VERSION &> /dev/null
+    if [ $? == 0 ]; then
+        echo "go version is $GO_VERSION"
+    else 
+        echo "Updating to $GO_VERSION"
+        go env -w GOTOOLCHAIN=go${GO_VERSION}+auto
+        go version
+    fi
 fi
