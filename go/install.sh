@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export GO_VERSION=1.21.6
+export GO_VERSION=1.22.3
 
 if test ! $(which go)
 then
