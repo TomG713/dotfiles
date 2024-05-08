@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 #
+#
 # Run all dotfiles installers.
 
 cd "$(dirname $0)"/..
@@ -24,6 +25,9 @@ mac () {
 }
 
 linux () {
+    RED="\033[1;31m"
+    GREEN="\033[1;32m"
+    NOCOLOR="\033[0m"
     echo "-----------------------"
     echo "> updating with apt"
     sudo apt update && \
@@ -31,7 +35,9 @@ linux () {
     sudo apt upgrade && \
     sudo apt autoremove && \
     sudo apt autoclean && \
-    apt-mark showmanual > ./tmp/aptfile
+    apt-mark showmanual | sort -u > ./tmp/aptfile
+    APTDIF=$(comm -23 ./tmp/aptfile ./linux/aptfile)
+    echo -e "${RED}Unsaved packages: \n${APTDIF}${NOCOLOR}"
     echo "-----------------------"
     
     # find the installers and run them iteratively
