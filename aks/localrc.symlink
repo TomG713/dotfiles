@@ -1,0 +1,5 @@
+unset AKS_GOPROXY_TOKEN
+export GONOPROXY='github.com,golang.org,googlesource.com,opentelemetry.io,uber.org'
+export GOPRIVATE='goms.io'
+export GOPROXY='https://goproxyprod.goms.io'
+

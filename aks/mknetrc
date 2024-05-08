@@ -1,0 +1,39 @@
+#!/bin/bash
+set -eo pipefail
+
+# crontab -e
+#@reboot        ~/.local/bin/mknetrc
+#0 */8 * * *    ~/.local/bin/mknetrc
+
+
+NETRC="${NETRC:-"${HOME}/.netrc"}"
+
+touch "${NETRC}"
+chmod 600 "${NETRC}"
+
+HOSTNAME="$(hostname)"
+
+TIME="$(date '+%T')"
+
+KERNEL_NAME="$(uname -s)"
+if [[ "${KERNEL_NAME}" == "Darwin" ]]
+then
+    VALID_TO="$(date -I'seconds' -v'+12H')"
+else
+    VALID_TO="$(date -I'seconds' -d'+12 hours')"
+fi
+
+: \
+| az rest \
+    --resource '499b84ac-1321-427f-aa17-267ca6975798' \
+    --method 'POST' \
+    --headers 'Content-Type=application/json' \
+    --uri 'https://vssps.dev.azure.com/msazure/_apis/tokens/pats?api-version=7.1-preview.1' \
+    --body '{
+        "allOrgs": false,
+        "displayName": "'"AKS Builder @ ${HOSTNAME} - ${TIME}"'",
+        "scope": "vso.code",
+        "validTo": "'"${VALID_TO}"'"
+    }' \
+| jq -r '"machine goproxyprod.goms.io login _ password \(.patToken.token)"' \
+> "${NETRC}"
