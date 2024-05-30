@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#xrandr | grep ' connected'
+#https://askubuntu.com/a/1427781
+
+DISPLAY=:1; export DISPLAY
+
+case "$1" in
+    suspend | hibernate | pre)
+        # no operation
+        :
+        ;;
+    resume | thaw | post)
+        # wakes the external monitor connected to the HDMI port
+        xrandr --output DP-4 --auto --right-of eDP-1 --primary
+        sleep 3
+        xrandr --output DP-4 --auto --right-of eDP-1 --primary
+        ;;
+esac
+
+exit 0

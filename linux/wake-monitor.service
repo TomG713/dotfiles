@@ -1,0 +1,13 @@
+[Unit]
+Description=Wake external monitor connected to DP after resuming from sleep, and when entering a display manager
+After=sleep.target display-manager.service
+StopWhenUnneeded=yes
+
+[Service]
+User=tng
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/lib/pm-utils/sleep.d/99_external_monitor_wake resume
+
+[Install]
+WantedBy=sleep.target display-manager.service
