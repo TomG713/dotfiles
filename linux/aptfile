@@ -89,7 +89,10 @@ ncurses-bin
 neovim
 ntfs-3g
 nvidia-driver-535
+openjdk-11-jdk
 openjdk-11-jre
+openjdk-19-jdk
+openjdk-8-jdk
 p7zip-full
 parted
 pass
