@@ -1,7 +1,12 @@
 #!/bin/bash
 
+
+# could add this - xset dpms force off; sleep 2; xset dpms force on
+
+
 #xrandr | grep ' connected'
 #https://askubuntu.com/a/1427781
+# /usr/lib/pm-utils/sleep.d/99_external_monitor_wake
 
 DISPLAY=:1; export DISPLAY
 
