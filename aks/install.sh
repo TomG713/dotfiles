@@ -1,13 +1,25 @@
 #!/usr/bin/env bash
 
-if test ! $(which ktx)
-then 
-	echo "Installing ktx"
-    	sudo curl https://raw.githubusercontent.com/blendle/kns/master/bin/ktx -o /usr/local/bin/ktx && sudo chmod +x $_
-fi
+set -e
 
-if test ! $(which kns)
-then
-	echo "Installing kns"
-	sudo curl https://raw.githubusercontent.com/blendle/kns/master/bin/kns -o /usr/local/bin/kns && sudo chmod +x $_
-fi
+source "$(dirname "$0")/../bin/common.sh"
+
+install_tool() {
+  local tool=$1
+  local url=$2
+  if ! command_exists "$tool"; then
+    log_info "Installing $tool..."
+    sudo curl -L "$url" -o /usr/local/bin/$tool
+    sudo chmod +x /usr/local/bin/$tool
+    log_success "$tool installed successfully."
+  else
+    log_info "$tool is already installed."
+  fi
+}
+
+main() {
+  install_tool ktx "https://raw.githubusercontent.com/blendle/kns/master/bin/ktx"
+  install_tool kns "https://raw.githubusercontent.com/blendle/kns/master/bin/kns"
+}
+
+main "$@"

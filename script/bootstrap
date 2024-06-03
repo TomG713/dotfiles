@@ -1,50 +1,31 @@
 #!/usr/bin/env bash
-#
-# bootstrap installs things.
+
+set -e
+
+source "$(dirname "$0")/../bin/common.sh"
 
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd -P)
 
-set -e
-
-echo ''
-
 sudo -v
 
-info () {
-  printf "\r  [ \033[00;34m..\033[0m ] $1\n"
-}
-
-user () {
-  printf "\r  [ \033[0;33m??\033[0m ] $1\n"
-}
-
-success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
-  exit
-}
-
 setup_gitconfig () {
-  if ! [ -f git/gitconfig.local.symlink ]
-  then
-    info 'setup gitconfig'
+  if ! [ -f git/gitconfig.local.symlink ]; then
+    log_info "Setting up gitconfig"
 
-    user ' - What is your github author name?'
+    log_user " - What is your GitHub author name?"
     read -e git_authorname
-    user ' - What is your github author email?'
+    log_user " - What is your GitHub author email?"
     read -e git_authoremail
 
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
+    sed -e "s/AUTHORNAME/$git_authorname/g" \
+        -e "s/AUTHOREMAIL/$git_authoremail/g" \
+        -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" \
+        git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
 
-    success 'gitconfig'
+    log_success "Gitconfig setup completed"
   fi
 }
-
 
 link_file () {
   local src=$1 dst=$2
@@ -52,77 +33,58 @@ link_file () {
   local overwrite= backup= skip=
   local action=
 
-  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
-  then
+  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
 
-    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
-    then
+    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
 
       local currentSrc="$(readlink $dst)"
 
-      if [ "$currentSrc" == "$src" ]
-      then
-
-        skip=true;
-
+      if [ "$currentSrc" == "$src" ]; then
+        skip=true
       else
-
-        user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
+        log_warning "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
         [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
         read -n 1 action
 
         case "$action" in
-          o )
-            overwrite=true;;
-          O )
-            overwrite_all=true;;
-          b )
-            backup=true;;
-          B )
-            backup_all=true;;
-          s )
-            skip=true;;
-          S )
-            skip_all=true;;
-          * )
-            ;;
+          o ) overwrite=true ;;
+          O ) overwrite_all=true ;;
+          b ) backup=true ;;
+          B ) backup_all=true ;;
+          s ) skip=true ;;
+          S ) skip_all=true ;;
+          * ) ;;
         esac
-
       fi
-
     fi
 
     overwrite=${overwrite:-$overwrite_all}
     backup=${backup:-$backup_all}
     skip=${skip:-$skip_all}
 
-    if [ "$overwrite" == "true" ]
-    then
+    if [ "$overwrite" == "true" ]; then
       rm -rf "$dst"
-      success "removed $dst"
+      log_success "Removed $dst"
     fi
 
-    if [ "$backup" == "true" ]
-    then
+    if [ "$backup" == "true" ]; then
       mv "$dst" "${dst}.backup"
-      success "moved $dst to ${dst}.backup"
+      log_success "Moved $dst to ${dst}.backup"
     fi
 
-    if [ "$skip" == "true" ]
-    then
-      success "skipped $src"
+    if [ "$skip" == "true" ]; then
+      log_success "Skipped $src"
     fi
   fi
 
-  if [ "$skip" != "true" ]  # "false" or empty
-  then
-    ln -s "$1" "$2"
-    success "linked $1 to $2"
+  if [ "$skip" != "true" ]; then
+    ln -s "$src" "$dst"
+    log_success "Linked $src to $dst"
   fi
 }
 
 install_dotfiles () {
-  info 'installing dotfiles'
+  log_info "Installing dotfiles"
 
   mkdir -p $DOTFILES_ROOT/tmp
   touch $DOTFILES_ROOT/tmp/aptfile
@@ -130,99 +92,72 @@ install_dotfiles () {
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
-  do
+  for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*'); do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done
-  echo 'change shell to zsh -- chsh -s $(which zsh)'
+  log_info "Change shell to zsh -- chsh -s $(which zsh)"
 }
 
 linux_prep () {
-    if test ! $(which docker)
-    then
-        echo "Installing docker"
-        sudo apt update
-        # Add Docker's official GPG key:
-        sudo apt-get install ca-certificates curl gnupg
-        sudo install -m 0755 -d /etc/apt/keyrings
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-        sudo chmod a+r /etc/apt/keyrings/docker.gpg
+  if ! command_exists docker; then
+    log_info "Installing Docker"
+    sudo apt update
+    sudo apt-get install -y ca-certificates curl gnupg
+    sudo install -m 0755 -d /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
-        # Add the repository to Apt sources:
-        echo \
-        "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-        "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-        sudo apt update
-	      sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-        sudo usermod -aG docker ${USER}
-    fi
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-    if test ! $(which kubectl)
-    then
-        # notice hard coded 1.28
-        echo "Installing kubectl 1.28"
-        sudo apt update
-        sudo apt install -y apt-transport-https ca-certificates curl
-        curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-        echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
-        sudo apt update
-	sudo apt install kubectl
-    fi
-    
-    if test ! $(which az)
-    then
-        echo "Installing az cli"
-        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-    fi
+    sudo apt update
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    sudo usermod -aG docker ${USER}
+  fi
 
-    if test ! $(which zsh)
-    then
-        echo "Installing zsh"
-        sudo apt update
-        sudo apt install zsh
-    fi
+  if ! command_exists kubectl; then
+    log_info "Installing kubectl 1.28"
+    sudo apt update
+    sudo apt install -y apt-transport-https ca-certificates curl
+    curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+    sudo apt update
+    sudo apt install -y kubectl
+  fi
+  
+  if ! command_exists az; then
+    log_info "Installing Azure CLI"
+    curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+  fi
+
+  if ! command_exists zsh; then
+    log_info "Installing zsh"
+    sudo apt update
+    sudo apt install -y zsh
+  fi
 }
 
-mac_prep() {
-  if test ! $(which brew)
-    then
-	    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    fi
+mac_prep () {
+  if ! command_exists brew; then
+    log_info "Installing Homebrew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  fi
   brew install zsh
 }
 
 case "$OSTYPE" in
   darwin*)  mac_prep ;; 
   linux*)   linux_prep ;;
-  bsd*)     echo "BSD" ;;
-  msys*)    echo "WINDOWS" ;;
-  cygwin*)  echo "ALSO WINDOWS" ;;
-  *)        echo "unknown: $OSTYPE" ;;
+  bsd*)     log_info "BSD" ;;
+  msys*)    log_info "WINDOWS" ;;
+  cygwin*)  log_info "ALSO WINDOWS" ;;
+  *)        log_info "unknown: $OSTYPE" ;;
 esac
-
-
-
-# unameOut=$(uname -a)
-# case "${unameOut}" in
-#     *Microsoft*)     OS="WSL";; #wls must be first since it will have Linux in the name too
-#     *microsoft*)     OS="WSL2";; 
-#     Linux*)     OS="Linux";;
-#     Darwin*)    OS="Mac";;
-#     CYGWIN*)    OS="Cygwin";;
-#     MINGW*)     OS="Windows";; 
-#     *Msys)     OS="Windows";;
-#     *)          OS="UNKNOWN:${unameOut}"
-# esac
-
-# if [[ ${OS} == "Mac" ]] && sysctl -n machdep.cpu.brand_string | grep -q 'Apple M1'; then
-#     #Check if its an M1. This check should work even if the current processes is running under x86 emulation.
-#     OS="MacM1"
-# fi
-# echo ${OS};
 
 setup_gitconfig
 install_dotfiles
 
-echo 'all installed!'
+log_success "All installed!"

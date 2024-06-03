@@ -1,63 +1,101 @@
 #!/usr/bin/env bash
-#
-#
-# Run all dotfiles installers.
 
-cd "$(dirname $0)"/..
+set -e
 
-mac () {
-   if test ! $(which brew)
-   then
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-   fi
+source "$(dirname "$0")/../bin/common.sh"
 
-   echo "-----------------------"
-   echo "> updating with homebrew"
-   brew bundle --file=./macos/brewfile
-   brew update
-   brew upgrade
-   brew cleanup
-   brew bundle dump --all --force --file=./tmp/brewfile
-   echo "-----------------------"
-
-   # find the installers and run them iteratively
-   find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+# Function to run installers
+run_installers() {
+    log_info "Running all dotfiles installers..."
+    find . -name install.sh -exec sh -c '{}' \;
 }
 
-linux () {
-    RED="\033[1;31m"
-    GREEN="\033[1;32m"
-    NOCOLOR="\033[0m"
-    echo "-----------------------"
-    echo "> updating with apt"
-    sudo apt update && \
-    sudo apt install -y $(cat ./linux/aptfile)
-    sudo apt upgrade && \
-    sudo apt autoremove && \
-    sudo apt autoclean && \
-    apt-mark showmanual | sort -u > ./tmp/aptfile
-    APTDIF=$(comm -23 ./tmp/aptfile ./linux/aptfile)
-    echo -e "${RED}Unsaved packages: \n${APTDIF}${NOCOLOR}"
-    echo "-----------------------"
+# Function to install Homebrew if not installed
+install_homebrew() {
+    if ! command -v brew &> /dev/null; then
+        log_warning "Homebrew not found. Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    fi
+}
+
+# Function to update and upgrade Homebrew packages
+update_homebrew() {
+    log_info "Updating Homebrew packages..."
+    brew update
+    brew upgrade
+    brew cleanup
+    brew bundle --file=./macos/brewfile
+    brew bundle dump --all --force --file=./tmp/brewfile
+}
+
+# Function for macOS setup
+mac_setup() {
+    log_info "Setting up macOS..."
+    install_homebrew
+    update_homebrew
+    run_installers
+}
+
+# Function to install APT packages
+install_apt_packages() {
+    log_info "Updating APT packages..."
     
-    # find the installers and run them iteratively
-    find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+    {
+        sudo apt update
+        sudo apt install -y $(cat ./linux/aptfile)
+    } || {
+        log_warning "There was an error during apt install. Continuing..."
+    }
+    
+    {
+        sudo apt upgrade -y
+    } || {
+        log_warning "There was an error during apt upgrade. Continuing..."
+    }
+    
+    sudo apt autoremove -y
+    sudo apt autoclean -y
 }
 
-if [ "$(uname)" == "Darwin" ]; then
-    mac        
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    linux
-fi
+# Function to check for unsaved APT packages
+check_unsaved_apt_packages() {
+    apt-mark showmanual | sort -u > ./tmp/aptfile
+    local apt_diff
+    apt_diff=$(comm -23 ./tmp/aptfile ./linux/aptfile)
 
-# case "$OSTYPE" in
-#   darwin*)  echo "Bootstrapping OSX" ;; 
-#   linux*)   linux_prep ;;
-#   bsd*)     echo "BSD" ;;
-#   msys*)    echo "WINDOWS" ;;
-#   cygwin*)  echo "ALSO WINDOWS" ;;
-#   *)        echo "unknown: $OSTYPE" ;;
-# esac
+    if [ -n "$apt_diff" ]; then
+        log_warning "Unsaved packages: (tmp/aptfile->linux/aptfile) \n$apt_diff"
+    else
+        log_success "All packages are up to date."
+    fi
+}
 
+# Function for Linux setup
+linux_setup() {
+    log_info "Setting up Linux..."
+    install_apt_packages
+    check_unsaved_apt_packages
+    run_installers
+}
 
+# Main script execution
+main() {
+    cd "$(dirname "$0")"/..
 
+    case "$(uname)" in
+        Darwin)
+            mac_setup
+            ;;
+        Linux)
+            linux_setup
+            ;;
+        *)
+            log_warning "Unsupported operating system."
+            exit 1
+            ;;
+    esac
+
+    log_success "Setup completed successfully."
+}
+
+main "$@"
