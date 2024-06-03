@@ -3,7 +3,7 @@
 Your dotfiles are how you personalize your system. These are mine.
 Forked from https://github.com/holman/dotfiles.git.
 
-This was originally used on OSx, but also supports ubuntu  
+This was originally used on OSx, but also supports ubuntu/wsl  
 
 ## install
 
