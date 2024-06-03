@@ -43,18 +43,26 @@ install_and_configure_yarn() {
 update_yarn_and_global_packages() {
   log_info "Checking for Yarn and global package updates..."
   local updates_needed=false
-  local outdated_packages
+  local global_packages
 
-  outdated_packages=$(yarn global outdated || true)
-  if [ -n "$outdated_packages" ]; then
-    updates_needed=true
-  fi
+  global_packages=$(yarn global list --depth=0 | grep -oP '(?<=info ")(.*)(?=@)')
+
+  for pkg in $global_packages; do
+    local latest_version
+    latest_version=$(yarn info $pkg version --silent)
+    local installed_version
+    installed_version=$(yarn global list --pattern "$pkg@" --depth=0 | grep -oP '(?<=info "'$pkg'@)(.*)(?=\")')
+    if [ "$latest_version" != "$installed_version" ]; then
+      updates_needed=true
+      break
+    fi
+  done
 
   if $updates_needed; then
     log_info "Updating Yarn and global packages..."
     npm install npm@latest -g
     npm -g update yarn
-    yarn global upgrade --latest
+    yarn global upgrade
     npm -g update
   else
     log_info "Yarn and global packages are up to date."
