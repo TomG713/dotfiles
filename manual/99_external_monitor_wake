@@ -1,8 +1,5 @@
 #!/bin/bash
 
-
-# could add this - xset dpms force off; sleep 2; xset dpms force on
-
 #xrandr | grep ' connected'
 #https://askubuntu.com/a/1427781
 # /usr/lib/pm-utils/sleep.d/99_external_monitor_wake
@@ -17,9 +14,11 @@ case "$1" in
         ;;
     resume | thaw | post)
         # wakes the external monitor connected to the HDMI port
-        xrandr --output DP-4 --auto --right-of eDP-1 --primary
-        sleep 3
-        xrandr --output DP-4 --mode 3840x2160 --right-of eDP-1 --primary
+        xrandr --output DP-4-1-5 --auto --right-of eDP-1 --primary
+        xset dpms force off
+	sleep 10
+	xset dpms force on
+        xrandr --output DP-4-1-5 --mode 3840x2160 --right-of eDP-1 --primary
         ;;
 esac
 
