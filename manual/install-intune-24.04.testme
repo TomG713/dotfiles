@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$(dirname "$0")/../bin/common.sh"
+
+# Function to check if intune-portal is already installed
+check_intune_installed() {
+  if dpkg -l | grep -q intune-portal; then
+    log_warning "Intune Portal is already installed. Exiting installation."
+    exit 0
+  fi
+}
+
+# Function to check if the system is WSL
+check_wsl() {
+  if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null; then
+    log_warning "The system is running WSL. Exiting installation."
+    exit 0
+  fi
+}
+
+# Function to edit /etc/apt/sources.list.d/ubuntu.sources
+edit_apt_sources() {
+  local sources_file="/etc/apt/sources.list.d/ubuntu.sources"
+  log_info "Editing $sources_file to add noble and mantic sources..."
+
+  sudo bash -c "cat > $sources_file" <<EOL
+Types: deb
+URIs: http://archive.ubuntu.com/ubuntu
+Suites: noble noble-updates noble-backports
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+Types: deb
+URIs: http://security.ubuntu.com/ubuntu/
+Suites: noble-security
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+Types: deb
+URIs: http://nl.archive.ubuntu.com/ubuntu/
+Suites: mantic
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+Types: deb
+URIs: http://security.ubuntu.com/ubuntu/
+Suites: mantic-security
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+EOL
+
+  log_success "Edited $sources_file successfully."
+}
+
+# Function to install Microsoft Edge for Business
+install_edge() {
+  log_info "Installing Microsoft Edge for Business..."
+
+  curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+  sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+  sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-dev.list'
+  sudo rm microsoft.gpg
+  sudo apt update
+  sudo apt install -y microsoft-edge-stable
+
+  log_success "Microsoft Edge for Business installed successfully."
+}
+
+# Function to install prerequisites for the Intune Portal
+install_intune_prereqs() {
+  log_info "Installing prerequisites for the Intune Portal..."
+  sudo apt install -y openjdk-11-jre libicu72 libjavascriptcoregtk-4.0-18 libwebkit2gtk-4.0-37
+  log_success "Prerequisites for the Intune Portal installed successfully."
+}
+
+# Function to install Intune Portal
+install_intune_portal() {
+  log_info "Installing Intune Portal..."
+
+  curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+  sudo install -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/
+  sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/ubuntu/22.04/prod jammy main" > /etc/apt/sources.list.d/microsoft-ubuntu-jammy-prod.list'
+  sudo rm microsoft.gpg
+  sudo apt update
+  sudo apt install -y intune-portal
+
+  log_success "Intune Portal installed successfully."
+}
+
+# Function to purge and install specific version of Microsoft Identity Broker
+fix_identity_broker() {
+  log_info "Fixing Microsoft Identity Broker..."
+
+  sudo apt purge -y microsoft-identity-broker
+  sudo apt install -y microsoft-identity-broker=1.7.0
+  sudo apt-mark hold microsoft-identity-broker
+
+  log_success "Microsoft Identity Broker fixed to version 1.7.0."
+}
+
+# Function to purge and reinstall Intune Portal
+reinstall_intune_portal() {
+  log_info "Reinstalling Intune Portal to ensure it uses Microsoft Identity Broker v1.7.0..."
+
+  sudo apt purge -y intune-portal
+  sudo apt install -y intune-portal
+
+  log_success "Intune Portal reinstalled successfully."
+}
+
+main() {
+  check_wsl
+  check_intune_installed
+  edit_apt_sources
+  install_edge
+  install_intune_prereqs
+  install_intune_portal
+  fix_identity_broker
+  reinstall_intune_portal
+}
+
+main "$@"
+
