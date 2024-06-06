@@ -6,55 +6,86 @@
 #xrandr | grep ' connected'
 #https://askubuntu.com/a/1427781
 
+
+
 LOGFILE="/var/log/external_monitor_wake.log"
+MONITOR="DP-4-1-5"
+BUILT_IN_MONITOR="eDP-1"
+NVIDIA_SETTINGS="CurrentMetaMode=\"$MONITOR: nvidia-auto-select +1920+0 { ForceCompositionPipeline = On }\""
+DEBUG=false
 
-echo "------------------------------------------------------------" >> $LOGFILE
-echo "$(date) - Manual execution requested" >> $LOGFILE
+log() {
+    echo "$(date) - $1" >> $LOGFILE
+}
 
-echo "$(date) - Enabling NVIDIA persistence mode..." >> $LOGFILE
-sudo nvidia-smi -pm 1 >> $LOGFILE 2>&1
-echo "$(date) - Persistence mode enabled successfully." >> $LOGFILE
-
-echo "$(date) - Resetting display configuration..." >> $LOGFILE
-xrandr --auto >> $LOGFILE 2>&1
-echo "$(date) - xrandr output:" >> $LOGFILE
-xrandr >> $LOGFILE 2>&1
-
-echo "$(date) - Forcing full composition pipeline for NVIDIA..." >> $LOGFILE
-sudo nvidia-settings --assign CurrentMetaMode="DP-4-1-5: nvidia-auto-select +1920+0 { ForceCompositionPipeline = On }" >> $LOGFILE 2>&1
-
-if [ $? -eq 0 ]; then
-    echo "$(date) - Full composition pipeline forced successfully." >> $LOGFILE
-else
-    echo "$(date) - Failed to force full composition pipeline." >> $LOGFILE
-fi
-
-echo "$(date) - Waking up external monitor..." >> $LOGFILE
-
-for i in {1..3}; do
-    echo "$(date) - Attempt $i: Enabling DP-4-1-5..." >> $LOGFILE
-    xrandr --output DP-4-1-5 --auto --right-of eDP-1 --primary >> $LOGFILE 2>&1
-#    xset dpms force off
-#    sleep 2
-#    xset dpms force on
-    if xrandr | grep -q "DP-4-1-5 connected"; then
-        echo "$(date) - External monitor detected and enabled." >> $LOGFILE
-        break
+execute() {
+    log "$1"
+    if $DEBUG; then
+        eval "$2" >> $LOGFILE 2>&1
+        if [ $? -eq 0 ]; then
+            log "$3"
+        else
+            log "$4"
+        fi
     else
-        echo "$(date) - External monitor not detected." >> $LOGFILE
+        eval "$2" >> /dev/null 2>&1
     fi
-done
+}
 
-echo "$(date) - Final xrandr output:" >> $LOGFILE
-xrandr >> $LOGFILE 2>&1
-echo "------------------------------------------------------------" >> $LOGFILE
-echo "$(date) - End of script execution" >> $LOGFILE
+reset_gpu() {
+    execute "Enabling NVIDIA persistence mode..." "sudo nvidia-smi -pm 1" "Persistence mode enabled successfully." "Failed to enable persistence mode."
+}
 
+reset_display() {
+    execute "Resetting display configuration..." "xrandr --auto" "Display configuration reset successfully." "Failed to reset display configuration."
+    if $DEBUG; then
+        execute "xrandr output:" "xrandr" "" ""
+    fi
+}
 
+wake_monitor() {
+    execute "Forcing full composition pipeline for NVIDIA..." "sudo nvidia-settings --assign $NVIDIA_SETTINGS" "Full composition pipeline forced successfully." "Failed to force full composition pipeline."
 
+    log "Waking up external monitor..."
 
+    for i in {1..3}; do
+        log "Attempt $i: Enabling $MONITOR..."
+        execute "" "xrandr --output $MONITOR --auto --right-of $BUILT_IN_MONITOR --primary" "" ""
+        if xrandr | grep -q "$MONITOR connected"; then
+            log "External monitor detected and enabled."
+            break
+        else
+            log "External monitor not detected."
+        fi
+    done
 
+    if $DEBUG; then
+        execute "Final xrandr output:" "xrandr" "" ""
+    fi
+}
 
+log "------------------------------------------------------------"
 
+case "$1" in
+    suspend | hibernate | pre)
+        log "System is going to $1"
+        ;;
+    resume | thaw | post)
+        log "System is waking up from $1"
+        reset_gpu
+        reset_display
+        wake_monitor
+        ;;
+    manual)
+        log "Manual execution requested"
+        reset_gpu
+        reset_display
+        wake_monitor
+        ;;
+    *)
+        echo "Usage: $0 {suspend|hibernate|pre|resume|thaw|post|manual}"
+        exit 1
+        ;;
+esac
 
-
+exit 0

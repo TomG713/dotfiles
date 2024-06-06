@@ -4,7 +4,6 @@ After=sleep.target display-manager.service
 StopWhenUnneeded=yes
 
 [Service]
-User=tng
 Type=oneshot
 RemainAfterExit=no
 ExecStart=/usr/local/bin/external_monitor_wake resume
