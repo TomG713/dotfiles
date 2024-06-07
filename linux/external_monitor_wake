@@ -64,6 +64,11 @@ wake_monitor() {
     fi
 }
 
+reset_thunderbolt() {
+    execute "Resetting Thunderbolt controller..." "sudo tee /sys/bus/thunderbolt/devices/0-0/authorized <<<0; sleep 2; sudo tee /sys/bus/thunderbolt/devices/0-0/authorized <<<1" "Thunderbolt controller reset successfully." "Failed to reset Thunderbolt controller."
+    sleep 5
+}
+
 log "------------------------------------------------------------"
 
 case "$1" in
@@ -73,12 +78,14 @@ case "$1" in
     resume | thaw | post)
         log "System is waking up from $1"
         reset_gpu
+        reset_thunderbolt
         reset_display
         wake_monitor
         ;;
     manual)
         log "Manual execution requested"
         reset_gpu
+        reset_thunderbolt
         reset_display
         wake_monitor
         ;;
