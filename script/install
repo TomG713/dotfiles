@@ -73,6 +73,7 @@ check_unsaved_apt_packages() {
 # Function for Linux setup
 linux_setup() {
     log_info "Setting up Linux..."
+    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
     install_apt_packages
     check_unsaved_apt_packages
     run_installers

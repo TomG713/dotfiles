@@ -77,7 +77,7 @@ install_or_update() {
     current_version=$(eval "$current_version_cmd")
 
     # Debugging output to check current_version
-    log_info "Extracted current $lang version: $current_version"
+    # log_info "Extracted current $lang version: $current_version"
 
     if [ "$current_version" != "$version" ]; then
       log_info "Updating to $lang $version"
@@ -92,7 +92,7 @@ install_or_update() {
     elif [ "$latest_version" != "$current_version" ]; then
       log_warning "$lang version is $current_version but the latest version is $latest_version"
     else
-      log_success "Already using latest version $version"
+      log_success "Already using $lang $version"
     fi
   fi
 }
