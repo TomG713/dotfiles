@@ -7,6 +7,7 @@ source "$(dirname "$0")/../bin/common.sh"
 REPO_URL="https://github.com/ryanoasis/nerd-fonts.git"
 DIR_NAME="nerd-fonts"
 FONT_DIR="$HOME/.local/share/fonts/NerdFonts"
+DEFAULT_FONT="CaskaydiaMono Nerd Font 10"
 
 main() {
   if [ -d "$FONT_DIR" ]; then
@@ -30,6 +31,7 @@ main() {
 
   if [ $? -eq 0 ]; then
     log_success "Installation completed successfully."
+    gsettings set org.gnome.desktop.interface monospace-font-name "'$DEFAULT_FONT'"
   else
     log_error "Installation failed."
   fi
