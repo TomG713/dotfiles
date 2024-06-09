@@ -1,6 +1,7 @@
 1password
 apt-transport-https
 azure-cli
+bolt
 bsdutils
 build-essential
 ca-certificates
@@ -37,6 +38,7 @@ grub-efi-amd64-signed
 grub-pc-bin
 gzip
 hostname
+hugo
 hyphen-en-ca
 hyphen-en-gb
 hyphen-en-us
@@ -65,11 +67,13 @@ libotf1
 libpam-pwquality
 libpinyin15
 libpinyin-data
+libreadline-dev
 libreoffice-help-common
 libreoffice-help-en-gb
 libreoffice-help-en-us
 libreoffice-l10n-en-gb
 libreoffice-l10n-en-za
+libssl-dev
 libtool
 libwebkit2gtk-4.0-37
 libyaml-dev
@@ -82,6 +86,7 @@ make
 microsoft-azurevpnclient
 microsoft-edge-stable
 microsoft-identity-broker
+mise
 mythes-en-au
 mythes-en-us
 ncurses-base
@@ -93,6 +98,7 @@ openjdk-11-jdk
 openjdk-11-jre
 openjdk-19-jdk
 openjdk-8-jdk
+openssl
 p7zip-full
 parted
 pass
@@ -101,9 +107,11 @@ python3-pip
 python3-wxgtk4.0
 ripgrep
 shim-signed
+sudo
 thunderbird-locale-en
 thunderbird-locale-en-gb
 thunderbird-locale-en-us
+tlp
 ttf-mscorefonts-installer
 ubuntu-desktop
 ubuntu-desktop-minimal
@@ -116,6 +124,7 @@ v4l-utils
 vim
 wget
 wpasupplicant
+xclip
 zip
 zlib1g-dev
 zsh

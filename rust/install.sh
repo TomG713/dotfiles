@@ -26,6 +26,8 @@ install_macos_dependencies() {
   brew install curl
 }
 
+
+
 main() {
 
   if [ -x "$HOME/.cargo/bin/rustc" ]; then
@@ -34,7 +36,9 @@ main() {
       exit 0
   fi
 
-  case "$(uname)" in
+  detect_os
+
+  case "$OS" in
     "Darwin")
       log_info "Detected macOS"
       install_macos_dependencies
@@ -44,7 +48,7 @@ main() {
       install_ubuntu_dependencies
       ;;
     *)
-      log_error "Unsupported operating system."
+      log_error "Unsupported operating system - $OS"
       ;;
   esac
 
