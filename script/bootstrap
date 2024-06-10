@@ -2,6 +2,7 @@
 
 set -e
 
+# Source the common functions, including detect_os and command_exists
 source "$(dirname "$0")/../bin/common.sh"
 
 cd "$(dirname "$0")/.."
@@ -20,10 +21,11 @@ setup_gitconfig () {
 
     sed -e "s/AUTHORNAME/$git_authorname/g" \
         -e "s/AUTHOREMAIL/$git_authoremail/g" \
-        -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" \
         git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
 
     log_success "Gitconfig setup completed"
+  else
+    log_info "Gitconfig already set up"
   fi
 }
 
@@ -33,11 +35,12 @@ link_file () {
   local overwrite= backup= skip=
   local action=
 
-  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
+  if [ -f "$dst" ] || [ -d "$dst" ] || [ -L "$dst" ]; then
 
     if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
 
-      local currentSrc="$(readlink $dst)"
+      local currentSrc
+      currentSrc=$(readlink "$dst")
 
       if [ "$currentSrc" == "$src" ]; then
         skip=true
@@ -45,6 +48,7 @@ link_file () {
         log_warning "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
         [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
         read -n 1 action
+        echo
 
         case "$action" in
           o ) overwrite=true ;;
@@ -73,22 +77,21 @@ link_file () {
     fi
 
     if [ "$skip" == "true" ]; then
-      log_success "Skipped $src"
+      log_info "Skipped $src"
+      return
     fi
   fi
 
-  if [ "$skip" != "true" ]; then
-    ln -s "$src" "$dst"
-    log_success "Linked $src to $dst"
-  fi
+  ln -s "$src" "$dst"
+  log_success "Linked $src to $dst"
 }
 
 install_dotfiles () {
   log_info "Installing dotfiles"
 
-  mkdir -p $DOTFILES_ROOT/tmp
-  touch $DOTFILES_ROOT/tmp/aptfile
-  touch $DOTFILES_ROOT/tmp/brewfile
+  mkdir -p "$DOTFILES_ROOT/tmp"
+  touch "$DOTFILES_ROOT/tmp/aptfile"
+  touch "$DOTFILES_ROOT/tmp/brewfile"
 
   local overwrite_all=false backup_all=false skip_all=false
 
@@ -100,69 +103,75 @@ install_dotfiles () {
 }
 
 linux_prep () {
-  if ! command_exists docker; then
-    log_info "Installing Docker"
-    sudo apt update
-    sudo apt-get install -y ca-certificates curl gnupg flatpak build-essential libssl-dev libreadline-dev zlib1g-dev libyaml
-    sudo install -m 0755 -d /etc/apt/keyrings
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-    sudo chmod a+r /etc/apt/keyrings/docker.gpg
+  log_info "Preparing Linux environment"
 
-    echo \
-      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-    sudo apt update
-    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-    sudo usermod -aG docker ${USER}
-  fi
-
-  if ! command_exists kubectl; then
-    log_info "Installing kubectl 1.28"
-    sudo apt update
-    sudo apt install -y apt-transport-https ca-certificates curl
-    curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
-    sudo apt update
-    sudo apt install -y kubectl
-  fi
-  
-  if ! command_exists az; then
-    log_info "Installing Azure CLI"
-    curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-  fi
+  sudo apt update
+  sudo apt-get install -y ca-certificates curl gnupg flatpak build-essential libssl-dev libreadline-dev zlib1g-dev libyaml-dev
+  sudo install -m 0755 -d /etc/apt/keyrings
 
   if ! command_exists zsh; then
     log_info "Installing zsh"
-    sudo apt update
     sudo apt install -y zsh
+    log_success "zsh installed"
+  else
+    log_info "zsh already installed"
   fi
 
   if ! command_exists mise; then
     install_mise_ubuntu
+  else
+    log_info "mise already installed"
   fi
 }
 
 mac_prep () {
+  log_info "Preparing macOS environment"
+
   if ! command_exists brew; then
     log_info "Installing Homebrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    log_success "Homebrew installed"
+  else
+    log_info "Homebrew already installed"
   fi
-  brew install zsh
-  brew install mise
+
+  if ! command_exists zsh; then
+    log_info "Installing zsh"
+    brew install zsh
+    log_success "zsh installed"
+  else
+    log_info "zsh already installed"
+  fi
+
+  if ! command_exists mise; then
+    log_info "Installing mise"
+    brew install mise
+    log_success "mise installed"
+  else
+    log_info "mise already installed"
+  fi
 }
 
-case "$OSTYPE" in
-  darwin*)  mac_prep ;; 
-  linux*)   linux_prep ;;
-  bsd*)     log_info "BSD" ;;
-  msys*)    log_info "WINDOWS" ;;
-  cygwin*)  log_info "ALSO WINDOWS" ;;
-  *)        log_info "unknown: $OSTYPE" ;;
-esac
+main() {
+  detect_os
 
-setup_gitconfig
-install_dotfiles
+  case "$OS" in
+    macOS)
+      mac_prep
+      ;;
+    Ubuntu | WSL)
+      linux_prep
+      ;;
+    *)
+      log_warning "Unsupported operating system: $OS"
+      exit 1
+      ;;
+  esac
 
-log_success "All installed!"
+  setup_gitconfig
+  install_dotfiles
+
+  log_success "All installed!"
+}
+
+main "$@"

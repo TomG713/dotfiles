@@ -34,5 +34,5 @@ detect_os() {
             OS="Unsupported"
             ;;
     esac
-    echo "Detected OS: $OS"
+    # echo "Detected OS: $OS"
 }

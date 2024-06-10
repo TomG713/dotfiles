@@ -39,7 +39,7 @@ main() {
   detect_os
 
   case "$OS" in
-    "Darwin")
+    "macOS")
       log_info "Detected macOS"
       install_macos_dependencies
       ;;
