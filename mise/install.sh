@@ -37,6 +37,10 @@ main() {
         log_info "Detected macOS. Installing mise..."
         install_mise_mac
         ;;
+	Ubuntu)
+        log_info "Detected Ubuntu -- probably WSL. Installing mise..."
+        install_mise_ubuntu
+        ;;
         *)
         log_error "Unsupported operating system: $OS"
         exit 1
