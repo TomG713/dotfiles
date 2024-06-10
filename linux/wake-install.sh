@@ -42,10 +42,15 @@ install_systemd_service() {
 }
 
 main() {
-  local script_path="/usr/local/bin/external_monitor_wake"
-  check_if_exists "$script_path"
-  install_wake_script
-  install_systemd_service
+  detect_os
+
+  if [ "$OS" == "Ubuntu" ]; then
+    local script_path="/usr/local/bin/external_monitor_wake"
+    check_if_exists "$script_path"
+    install_wake_script
+    install_systemd_service
+  fi
+  
 }
 
 main "$@"

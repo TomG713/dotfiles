@@ -43,7 +43,11 @@ main() {
       log_info "Detected macOS"
       install_macos_dependencies
       ;;
-    "Linux")
+    "Ubuntu")
+      log_info "Detected Linux"
+      install_ubuntu_dependencies
+      ;;
+    "WSL")
       log_info "Detected Linux"
       install_ubuntu_dependencies
       ;;

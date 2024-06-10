@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Log an info message
+log_info() {
+  printf "\r  [ \033[00;34mINFO\033[0m ] $1\n"
+}
+
+# Log a success message
+log_success() {
+  printf "\r\033[2K  [ \033[00;32mSUCCESS\033[0m ] $1\n"
+}
+
+# Log a warning message
+log_warning() {
+  printf "\r  [ \033[0;33mWARNING\033[0m ] $1\n"
+}
+
+# Log an error message and exit
+log_error() {
+  printf "\r\033[2K  [ \033[0;31mERROR\033[0m ] $1\n"
+  exit 1
+}

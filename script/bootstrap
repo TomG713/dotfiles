@@ -13,9 +13,9 @@ setup_gitconfig () {
   if ! [ -f git/gitconfig.local.symlink ]; then
     log_info "Setting up gitconfig"
 
-    log_user " - What is your GitHub author name?"
+    log_info " - What is your GitHub author name?"
     read -e git_authorname
-    log_user " - What is your GitHub author email?"
+    log_info " - What is your GitHub author email?"
     read -e git_authoremail
 
     sed -e "s/AUTHORNAME/$git_authorname/g" \
@@ -138,6 +138,10 @@ linux_prep () {
     sudo apt update
     sudo apt install -y zsh
   fi
+
+  if ! command_exists mise; then
+    install_mise_ubuntu
+  fi
 }
 
 mac_prep () {
@@ -146,6 +150,7 @@ mac_prep () {
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   fi
   brew install zsh
+  brew install mise
 }
 
 case "$OSTYPE" in

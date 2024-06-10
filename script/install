@@ -59,6 +59,8 @@ install_apt_packages() {
 
 # Function to check for unsaved APT packages
 check_unsaved_apt_packages() {
+    mkdir -p ./tmp
+    touch ./tmp/aptfile
     apt-mark showmanual | sort -u > ./tmp/aptfile
     local apt_diff
     set +e
@@ -74,21 +76,34 @@ check_unsaved_apt_packages() {
 # Function for Linux setup
 linux_setup() {
     log_info "Setting up Linux..."
-    #flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
     install_apt_packages
     check_unsaved_apt_packages
     run_installers
 }
 
+flatpak_setup() {
+    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+}
+
+
 # Main script execution
 main() {
     cd "$(dirname "$0")"/..
 
-    case "$(uname)" in
-        Darwin)
+
+    detect_os
+
+    log_info "OS is $OS"
+
+    case "$OS" in
+        macOS)
             mac_setup
             ;;
-        Linux)
+        Ubuntu)
+            linux_setup
+            flatpak_setup
+            ;;
+        WSL)
             linux_setup
             ;;
         *)
