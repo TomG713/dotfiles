@@ -21,6 +21,7 @@ dosfstools
 dropbox
 efibootmgr
 findutils
+flatpak
 fonts-powerline
 fonts-ubuntu-classic
 g++
