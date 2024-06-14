@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source "$(dirname "${BASH_SOURCE[0]}")/log"
-source "$(dirname "${BASH_SOURCE[0]}")/mise"
+source "$(dirname "${BASH_SOURCE[0]}")/log-helper"
+source "$(dirname "${BASH_SOURCE[0]}")/mise-helper"
 
 # Check if a command exists
 command_exists() {
