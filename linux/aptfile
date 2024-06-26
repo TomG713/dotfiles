@@ -53,6 +53,7 @@ language-pack-en
 language-pack-en-base
 language-pack-gnome-en
 language-pack-gnome-en-base
+libbz2-dev
 libchewing3
 libchewing3-data
 libffi-dev
@@ -74,6 +75,7 @@ libreoffice-help-en-gb
 libreoffice-help-en-us
 libreoffice-l10n-en-gb
 libreoffice-l10n-en-za
+libsqlite3-dev
 libssl-dev
 libtool
 libwebkit2gtk-4.0-37
