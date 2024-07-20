@@ -1,6 +1,6 @@
 [tools]
-go = "1.22.4"
-java = "22.0.1"
+#go = "1.22.5"
+#java = "22.0.5"
 
 [env]
 _.python.venv = { path = ".venv", create = true } # create the venv if it doesn't exist

@@ -39,10 +39,9 @@ mac_setup() {
 # Function to install APT packages
 install_apt_packages() {
     log_info "Updating APT packages..."
-    
     {
         sudo apt update
-        sudo apt install -y $(cat ./linux/aptfile)
+        sudo apt install -y $(cat ./linux/"$APT_FILE")
     } || {
         log_warning "There was an error during apt install. Continuing..."
     }
@@ -60,14 +59,14 @@ install_apt_packages() {
 # Function to check for unsaved APT packages
 check_unsaved_apt_packages() {
     mkdir -p ./tmp
-    touch ./tmp/aptfile
-    apt-mark showmanual | sort -u > ./tmp/aptfile
+    touch ./tmp/"$APT_FILE"
+    apt-mark showmanual | sort -u > ./tmp/"$APT_FILE"
     local apt_diff
     set +e
-    apt_diff=$(comm -23 ./tmp/aptfile ./linux/aptfile)
+    apt_diff=$(comm -23 ./tmp/"$APT_FILE" ./linux/"$APT_FILE")
     set -e
     if [ -n "$apt_diff" ]; then
-        log_warning "Unsaved packages: (tmp/aptfile->linux/aptfile) \n$apt_diff"
+        log_warning "Unsaved packages: (tmp/"$APT_FILE"->linux/"$APT_FILE") \n$apt_diff"
     else
         log_success "All packages are up to date."
     fi
@@ -100,10 +99,12 @@ main() {
             mac_setup
             ;;
         Ubuntu)
+            APT_FILE="ubuntu_apt"
             linux_setup
             flatpak_setup
             ;;
         WSL)
+            APT_FILE="wsl_apt"
             linux_setup
             ;;
         *)
