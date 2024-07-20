@@ -40,21 +40,22 @@ mac_setup() {
 install_apt_packages() {
     log_info "Updating APT packages..."
     {
-        sudo apt update
-        sudo apt install -y $(cat ./linux/"$APT_FILE")
+        sudo apt update > /dev/null 2>&1
+        sudo apt install -y $(cat ./linux/"$APT_FILE") > /dev/null 2>&1
     } || {
         log_warning "There was an error during apt install. Continuing..."
     }
     
     {
-        sudo apt upgrade -y
+        sudo apt upgrade -y > /dev/null 2>&1
     } || {
         log_warning "There was an error during apt upgrade. Continuing..."
     }
     
-    sudo apt autoremove -y
-    sudo apt autoclean -y
+    sudo apt autoremove -y > /dev/null 2>&1
+    sudo apt autoclean -y > /dev/null 2>&1
 }
+
 
 # Function to check for unsaved APT packages
 check_unsaved_apt_packages() {

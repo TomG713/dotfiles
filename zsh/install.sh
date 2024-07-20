@@ -51,27 +51,28 @@ install_prezto() {
 
   if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
     log_info "Installing Prezto..."
-    if ! git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"; then
+    if ! git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto" > /dev/null 2>&1; then
       log_error "Failed to clone Prezto repository."
       exit 1
     fi
   fi
   log_info "Updating Prezto..."
-  cd "${ZDOTDIR:-$HOME}/.zprezto"
-  if ! git pull; then
+  cd "${ZDOTDIR:-$HOME}/.zprezto" || exit
+  if ! git pull > /dev/null 2>&1; then
     log_error "Failed to update Prezto repository."
     exit 1
   fi
-  if ! git submodule sync --recursive; then
+  if ! git submodule sync --recursive > /dev/null 2>&1; then
     log_error "Failed to sync Prezto submodules."
     exit 1
   fi
-  if ! git submodule update --init --recursive; then
+  if ! git submodule update --init --recursive > /dev/null 2>&1; then
     log_error "Failed to update Prezto submodules."
     exit 1
   fi
   log_success "Prezto updated successfully."
 }
+
 
 # Main function
 main() {
