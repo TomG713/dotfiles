@@ -39,6 +39,7 @@ language-pack-gnome-en
 language-pack-gnome-en-base
 libchewing3
 libchewing3-data
+libfuse2
 libicu72
 libjavascriptcoregtk-4.0-18
 libm17n-0
@@ -77,5 +78,6 @@ ubuntu-wallpapers
 wbritish
 wget
 wpasupplicant
+yq
 zlib1g-dev
 zsh
