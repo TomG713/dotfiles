@@ -4,6 +4,6 @@ set -e
 
 source "$(dirname "$0")/../bin/common.sh"
 
-export GO_VERSION=1.23.1
+export GO_VERSION=1.23.2
 
 install_or_update "go" "$GO_VERSION" "go version | awk '{print \$3}' | sed 's/go//'"
