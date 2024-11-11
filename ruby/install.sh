@@ -4,7 +4,7 @@ set -e
 
 source "$(dirname "$0")/../bin/common.sh"
 
-export RUBY_VERSION=3.3.5
+export RUBY_VERSION=3.3.6
 
 install_or_update "ruby" "$RUBY_VERSION" "ruby --version 2>&1 | awk '{print \$2}'"
 
