@@ -1,3 +1,14 @@
+eval "$(ssh-agent -s)" >/dev/null 2>&1
+
+# Add all SSH private keys in ~/.ssh and log each added key
+for key in ~/.ssh/*; do
+    if [[ -f "$key" && "$key" != *.pub ]]; then
+        ssh-add "$key" 2>/dev/null
+    fi
+done
+
+
+
 unset AKS_GOPROXY_TOKEN
 export GONOPROXY='github.com,golang.org,googlesource.com,opentelemetry.io,uber.org'
 export GOPRIVATE='goms.io'
