@@ -17,7 +17,7 @@ $apps = @(
     @{name = "Microsoft.VisualStudioCode" },
     @{name = "Microsoft.WindowsTerminal" },
     @{name = "AgileBits.1Password"},
-    @{name = "Doist.Todoist"},
+    @{name = "Doist.Todoist"}
 );
 Foreach ($app in $apps) {
     $listApp = winget list --exact -q $app.name
