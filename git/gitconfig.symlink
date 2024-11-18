@@ -40,13 +40,9 @@
 	rebase = false
 [init]
 	defaultBranch = main
-#[commit]
-#	gpgsign = true
+[commit]
+	gpgsign = true
 [credential]
 	credentialStore = gpg
 [credential "https://dev.azure.com"]
 	useHttpPath = true
-[commit]
-	gpgsign = true
-[unset]
-	all = credential.helper
