@@ -1,7 +1,7 @@
 [tools]
-python = "3.12.5"
-go = "1.23.2"
-java = "22.0.2"
+python = "3.13.0"
+go = "1.23.3"
+java = "23.0.1"
 
 [env]
 _.python.venv = { path = ".venv", create = true } # create the venv if it doesn't exist
