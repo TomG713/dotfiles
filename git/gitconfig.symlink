@@ -34,8 +34,6 @@
 [user]
 	#signingkey = E0C358A87BE27B10
 	email = Thomas.Gamble@microsoft.com
-[url "msazure@vs-ssh.visualstudio.com:v3/msazure/CloudNativeCompute"]
-	insteadOf = https://dev.azure.com/msazure/CloudNativeCompute/_git
 [pull]
 	rebase = false
 [init]
@@ -44,6 +42,7 @@
 	gpgsign = true
 [credential]
 	credentialStore = gpg
-	helper = /usr/local/bin/git-credential-manager
-[credential "https://dev.azure.com"]
-	useHttpPath = true
+	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
+[url "https://dev.azure.com/msazure/CloudNativeCompute/_git/"]
+	insteadOf = git@ssh.dev.azure.com:v3/msazure/CloudNativeCompute/
+
