@@ -1,79 +1,106 @@
-## dotfiles
+# Dotfiles
 
-Your dotfiles are how you personalize your system. These are mine.
-Forked from https://github.com/holman/dotfiles.git.
+Your dotfiles personalize your system. These are mine, forked from [holman/dotfiles](https://github.com/holman/dotfiles.git).  
+Originally used on macOS, these dotfiles now also support Ubuntu, MacOs, and Windows/WSL.
 
-This was originally used on OSx, but also supports ubuntu/wsl  
+## Overview
 
-## install
+These dotfiles automate the setup of a personalized development environment. They include:
+- A `script/bootstrap` command to install prerequisites.
+- Development setups for multiple programming languages using **Mise**, as defined in `lang.sh`.
+- Easy customization via `zshrc.symlink`, `gitconfig.local`, and other topical configurations.
 
-* Windows only - [launch boxstarter](https://boxstarter.org/package/nr/url?https://raw.githubusercontent.com/gambtho/dotfiles/refs/heads/main/win/boxstarter.ps1)
+## Table of Contents
+1. [Installation](#installation)
+   - [Windows](#windows)
+   - [Ubuntu/WSL/macOS](#ubuntu-wsl-macos)
+2. [Usage](#usage)
+   - [dot-update](#dot-update)
+   - [Customization](#customization)
+3. [Components](#components)
+4. [Development Tools Setup](#development-tools-setup)
+5. [Troubleshooting](#troubleshooting)
+6. [Notes and Links](#notes-and-links)
 
-* ubuntu / wsl / mac
+## Installation
 
-  ```sh
-  git clone https://github.com/gambtho/dotfiles.git ~/.dotfiles
-  cd ~/.dotfiles
-  script/bootstrap
-  reload!
-  dot-update
-  ```
+### Windows
+1. Click the boxstarter icon to install prerequisites:  
+  [![Boxstarter](misc/boxstarter.png)](https://boxstarter.org/package/nr/url?https://raw.githubusercontent.com/gambtho/dotfiles/refs/heads/main/win/boxstarter.ps1)  
+  - After this, continue with the WSL setup below.
 
-  * you will need to update/add git/gitconfig.local.symlink for gcm / gpg -- current example assumes wsl and a gpg key
+### Ubuntu/WSL/macOS
+1. Clone the repository and use the setup scripts:
+   ```sh
+   git clone https://github.com/gambtho/dotfiles.git ~/.dotfiles
+   cd ~/.dotfiles
+   script/bootstrap
+   reload!
+   dot-update
+   ```
 
-This will symlink the appropriate files in `.dotfiles` to your home directory.
-Everything is configured and tweaked within `~/.dotfiles`.
+2. What `script/bootstrap` Does:
+- Symlinks configuration files from `.dotfiles` to your home directory.
+- Installs necessary tools and dependencies using [Mise](https://github.com/jdx/mise) and other platform-specific tools.
 
-The main file you'll want to change right off the bat is `zsh/zshrc.symlink`,
-which sets up a few paths that'll be different on your particular machine.
+3. Customize Git settings by editing `git/gitconfig.local.symlink`.  
+   - An example file is provided at `./git/gitconfig.local.symlink.example`.
+   - Current version assumes use of a gpg key, and windows git credential manager
+   - You should copy and modify it to include your Git configuration, such as:
+     ```ini
+     [user]
+         name = Your Name
+         email = your.email@example.com
+     [commit]
+         gpgsign = true
+     ```
 
-`dot-update` is a simple script that installs some dependencies, sets sane
-defaults, and so on. Tweak this script, and occasionally run `dot-update` from
-time to time to keep your environment fresh and up-to-date. You can find
-this script in `bin/`.
+---
 
-## topical
+## Usage
 
-Everything's built around topic areas. If you're adding a new area to your
-forked dotfiles — say, "Java" — you can simply add a `java` directory and put
-files in there. Anything with an extension of `.zsh` will get automatically
-included into your shell. Anything with an extension of `.symlink` will get
-symlinked without extension into `$HOME` when you run `script/bootstrap`.
+### dot-update
+This script ensures all installed tools, configurations, and dependencies stay up to date.  
+Here's an example of `dot-update` running:  
+![dot-update](./misc/dot-update.png)
 
-## components
+---
 
-There's a few special files in the hierarchy.
+## Components
 
-- **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
-  available everywhere.
-- **linux/aptfile or mac/brewfile**: This is a list of applications to install: Might want to edit this file before running any initial setup.
-- **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
-  environment.
-- **topic/path.zsh**: Any file named `path.zsh` is loaded first and is
-  expected to setup `$PATH` or similar.
-- **topic/install.sh**: Any file named `install.sh` is executed when you run `script/install`. To avoid being loaded automatically, its extension is `.sh`, not `.zsh`.
-- **topic/\*.symlink**: Any file ending in `*.symlink` gets symlinked into
-  your `$HOME`. This is so you can keep all of those versioned in your dotfiles
-  but still keep those autoloaded files in your home directory. These get
-  symlinked in when you run `script/bootstrap`.
+### File Organization
+The structure is organized by topics:
+- **bin/**: Contains scripts added to your `$PATH`.
+- **linux/aptfile** or **mac/brewfile**: Lists applications to install during setup.
+- **topic/\*.zsh**: Configuration files automatically loaded into your shell.
+- **topic/path.zsh**: Defines `$PATH` or similar variables and is loaded first.
+- **topic/install.sh**: Executes during the setup process to install tools or configurations.
+- **topic/\*.symlink**: Files symlinked to `$HOME` for use by your shell or applications.
 
-## possible todo
+---
 
-* remove pretzo
-* add boxstarter instructions
-* https://github.com/ericmurphyxyz/dotfiles
+## Development Tools Setup
 
+Using **Mise**, the setup supports multiple programming languages. The versions are defined in `mise/mise.local.toml.symlink`. Current languages (modify in `mise/lang.sh`):
 
-## notes and links
+<img src="./misc/go.svg" alt="Go" width="120"/>  
+  
+<img src="./misc/python.svg" alt="Python" height="120" width="120"/>  
 
-* https://htr3n.github.io/2018/07/faster-zsh/
-* https://blog.jonlu.ca/posts/speeding-up-zsh
-* https://blog.mattclemente.com/2020/06/26/oh-my-zsh-slow-to-load/
-* https://github.com/rupa/z/
-* https://github.com/jenv/jenv
-* https://github.com/pyenv/pyenv
-* https://github.com/romkatv/zsh-bench
-* https://github.com/Schniz/fnm
+<img src="./misc/java.svg" alt="Java"  height="120" width="120"/>  
+  
+<img src="https://nodejs.org/static/images/logo.svg" alt="Node.js"  height="120" width="120"/>  
+ 
+<img src="./misc/ruby.svg" alt="Ruby" height="120" width="120"/>  
+
+---
+
+## Notes and Links
+
+Additional useful tools and configurations:
+- [zsh-bench (Zsh benchmarking)](https://github.com/romkatv/zsh-bench)
+- [Faster Zsh](https://htr3n.github.io/2018/07/faster-zsh/)
+- [Speeding Up Zsh](https://blog.jonlu.ca/posts/speeding-up-zsh)
 
 ```
 ##### timer for troubleshooting
@@ -86,16 +113,7 @@ zmodload zsh/zprof
 # zprof at end of file
 ```
 
-```
-==> benchmarking login shell of user gambtho ...
-creates_tty=0
-has_compsys=1
-has_syntax_highlighting=0
-has_autosuggestions=1
-has_git_prompt=0
-first_prompt_lag_ms=37.364
-first_command_lag_ms=302.409
-command_lag_ms=45.020
-input_lag_ms=7.390
-exit_time_ms=123.721
-```
+
+
+
+
