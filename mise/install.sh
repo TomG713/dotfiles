@@ -3,6 +3,7 @@
 set -e
 
 source "$(dirname "$0")/../bin/common.sh"
+source "$(dirname "$0")/lang.sh"
 
 main() {
     if ! command_exists mise; then
@@ -30,6 +31,8 @@ main() {
     fi
 
     log_success "Mise install ompleted."
+
+    install_lang
 }
 
 main "$@"

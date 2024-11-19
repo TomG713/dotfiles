@@ -6,9 +6,10 @@ source "$(dirname "$0")/../bin/common.sh"
 
 
 check_if_exists() {
+  log_info "Checking on mknetrc"
   local file=$1
   if [ -e "$file" ]; then
-    log_warning "$file already exists. Exiting installation."
+    log_success "$file already exists."
     exit 0
   fi
 }
@@ -35,12 +36,12 @@ add_to_crontab() {
   log_success "mknetrc script added to crontab."
 }
 
-main() {
+mknetrc_setup() {
   local script_path="$HOME/.local/bin/mknetrc"
   check_if_exists "$script_path"
   install_mknetrc_script
   add_to_crontab
 }
 
-main "$@"
+mknetrc_setup "$@"
 

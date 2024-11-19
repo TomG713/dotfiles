@@ -3,6 +3,7 @@
 set -e
 
 source "$(dirname "$0")/../bin/common.sh"
+source "$(dirname "$0")/install-cron.sh"
 
 install_tool() {
   local tool=$1
@@ -62,6 +63,7 @@ main() {
       install_docker
       install_kubectl
       install_azcli
+      mknetrc_setup
       ;;
     *)
       ;;

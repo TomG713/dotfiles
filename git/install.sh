@@ -25,7 +25,7 @@ main() {
   detect_os
   
   case "$OS" in
-    "Ubuntu")
+    Ubuntu | WSL)
       git_ppa
       log_success "git updated to latest version"
       ;;

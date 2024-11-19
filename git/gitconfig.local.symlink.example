@@ -1,5 +1,12 @@
 [user]
-        name = AUTHORNAME
-        email = AUTHOREMAIL
+	signingkey = <<your key>>
+	email = <<your email>>
+[commit]
+	gpgsign = true
 [credential]
-        helper = GIT_CREDENTIAL_HELPER
+        // this assumes wsl with using windows git/gcm -- alternate options here https://github.com/git-ecosystem/git-credential-manager/blob/main/README.md#linux
+	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
+	useHttpPath = true
+// aks specific 
+[url "https://dev.azure.com/msazure/CloudNativeCompute/_git/"]
+	insteadOf = git@ssh.dev.azure.com:v3/msazure/CloudNativeCompute/

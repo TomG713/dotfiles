@@ -5,9 +5,7 @@ source "$(dirname "$0")/../bin/common.sh"
 
 MISE_TOML="$(dirname "$0")/../mise/mise.local.toml.symlink"
 
-main() {
-    echo "Starting installation process..."
-
+install_lang() {
     # Ensure mise.toml exists
     if [[ ! -f "$MISE_TOML" ]]; then
         log_error "Mise.toml file not found at $MISE_TOML"
@@ -43,8 +41,6 @@ main() {
     install_or_update "java" "$JAVA_VERSION" "java -version 2>&1 | awk -F '\"' '/version/ {print \$2}'" "$upgrade"
     install_or_update "node" "$NODE_VERSION" "node -v | sed 's/v//'" "$upgrade"
     install_or_update "ruby" "$RUBY_VERSION" "ruby --version 2>&1 | awk '{print \$2}'" "$upgrade"
-
-    echo "Installation process completed."
 }
 
-main "$@"
+install_lang "$@"
