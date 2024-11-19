@@ -89,7 +89,7 @@ Using **Mise**, the setup supports multiple programming languages. The versions 
 
 <img src="./misc/java.svg" alt="Java"  height="120" width="120"/>  
   
-<img src="https://nodejs.org/static/images/logo.svg" alt="Node.js"  height="120" width="120"/>  
+<img src="./misc/node.svg" alt="Node.js"  height="120" width="120"/>  
  
 <img src="./misc/ruby.svg" alt="Ruby" height="120" width="120"/>  
 
