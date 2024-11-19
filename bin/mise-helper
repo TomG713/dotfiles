@@ -1,52 +1,61 @@
+# Path to mise.toml
+MISE_TOML="$(dirname "$0")/../mise/mise.toml"
 
 # Function to check if a string is a valid version number
 is_valid_version() {
   [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
 }
 
-# Function to install or update a language using mise
 install_or_update() {
   local lang=$1
   local version=$2
   local current_version_cmd=$3
+  local force_upgrade=${4:-false}
 
-  if ! command_exists $lang; then
-    log_info "Installing $lang $version"
-    mise use -g $lang@$version
+  log_info "Starting installation or update for $lang (target version: $version)"
+
+  # Load mise environment quietly
+  setup_mise_env
+
+  if ! command_exists "$lang"; then
+    log_info "$lang not installed. Installing version $version."
+    mise use -g "$lang@$version" || log_error "Failed to install $lang@$version"
   else
-    # Run the command and capture the output
-    output=$(mise ls-remote $lang)
+    current_version=$(eval "$current_version_cmd" 2>/dev/null || echo "none")
+    log_info "Current version of $lang: $current_version"
 
-    # Filter and sort the versions, then get the latest one
-    latest_version=$(echo "$output" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1)
+    latest_version=$(mise ls-remote "$lang" 2>/dev/null | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1)
 
-    # Ensure that mise environment is loaded
-    export PATH="$HOME/.mise/bin:$PATH"
-    eval "$(mise env)"
+    if [[ -z "$latest_version" ]]; then
+      log_error "Could not determine the latest version for $lang."
+    fi
 
-    # Extract the current version of the language
-    current_version=$(eval "$current_version_cmd")
+    log_debug "Latest version identified for $lang: $latest_version"
 
-    # Debugging output to check current_version
-    # log_info "Extracted current $lang version: $current_version"
-
-    if [ "$current_version" != "$version" ]; then
-      log_info "Updating to $lang $version"
-      mise use -g $lang@$version
-      # Ensure that the new version is active
-      eval "$(mise env)"
-      new_version=$(eval "$current_version_cmd")
-      log_info "Newly set $lang version: $new_version"
+    if [ "$current_version" != "$version" ] || [ "$force_upgrade" == "true" ]; then
+      log_info "Updating $lang to version $version"
+      mise use -g "$lang@$version" || log_error "Failed to update $lang@$version"
+      setup_mise_env
+      new_version=$(eval "$current_version_cmd" || echo "none")
       if [ "$new_version" != "$version" ]; then
-        log_error "Failed to update to $lang $version. Currently set to $new_version."
+        log_error "$lang update failed. Expected $version, but got $new_version."
+      else
+        log_success "$lang successfully updated to $version."
       fi
     elif [ "$latest_version" != "$current_version" ]; then
-      log_warning "$lang version is $current_version but the latest version is $latest_version"
+      log_warning "$lang version $current_version is outdated. Latest is $latest_version."
     else
-      log_success "Already using $lang $version"
+      log_success "$lang is already up to date at version $current_version."
     fi
   fi
 }
+
+setup_mise_env() {
+  eval "$(mise env > /dev/null 2>&1)" || log_error "Failed to load mise environment."
+}
+
+
+
 
 # Function to install mise on Ubuntu
 install_mise_ubuntu() {
@@ -61,4 +70,17 @@ install_mise_ubuntu() {
 # Function to install mise on macOS
 install_mise_mac() {
   brew install mise
+}
+
+# Function to get tool version from mise.toml
+get_version_from_mise() {
+    local tool="$1"
+    local mise_file="$2"
+    local version
+    version=$(awk -F' = ' "/^${tool} =/ {gsub(/[\" ]/, \"\", \$2); print \$2}" "$mise_file")
+    if [[ -z "$version" ]]; then
+        log_error "Version for $tool not found in $mise_file"
+        exit 1
+    fi
+    echo "$version"
 }

@@ -2,6 +2,8 @@
 python = "3.13.0"
 go = "1.23.3"
 java = "23.0.1"
+node = "23.2.0"
+ruby = "3.3.6"
 
-[env]
-_.python.venv = { path = ".venv", create = true } # create the venv if it doesn't exist
+# [env]
+# _.python.venv = { path = ".venv", create = true } # create the venv if it doesn't exist

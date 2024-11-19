@@ -18,7 +18,6 @@ docker-ce-cli
 docker-compose-plugin
 findutils
 flatpak
-gcm
 git
 gnupg
 gpg
