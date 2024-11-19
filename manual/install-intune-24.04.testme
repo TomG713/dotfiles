@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# https://www.jdegoeij.com/posts/intune-ubuntu-24-04/
+
 
 set -e
 

@@ -1,9 +1,3 @@
-# 1. Make sure the Microsoft App Installer is installed:
-#    https://www.microsoft.com/en-us/p/app-installer/9nblggh4nns1
-# 2. Edit the list of apps to install.
-# 3. Run this script as administrator.
-# 4. update with path to this file - iex ((New-Object System.Net.WebClient).DownloadString('https://gist.githubusercontent.com/AdamDimech/08ba988211b55c71a480449b3b8ab6cd/raw'))
-
 Write-Output "Installing Apps"
 $apps = @(
     @{name = "Dropbox.Dropbox" },

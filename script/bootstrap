@@ -122,6 +122,15 @@ linux_prep () {
   else
     log_info "mise already installed"
   fi
+
+    # Check and install asdf
+  if [ ! -d "$HOME/.asdf" ]; then
+    log_info "Installing asdf version manager"
+    git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch v0.14.1
+    log_success "asdf installed"
+  else
+    log_info "asdf already installed at $HOME/.asdf"
+  fi
 }
 
 mac_prep () {
