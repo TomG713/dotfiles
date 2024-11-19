@@ -4,7 +4,7 @@ alias idweb='kinit THGAMBLE@NORTHAMERICA.CORP.MICROSOFT.COM && open -a safari ht
 # aksdev
 alias acrtest='az login && az acr login --name acstest'
 alias gowork='cd ${GOPATH}'
-alias rp='gowork && cd src/goms.io/aks/rp'
+alias rp='gowork && cd src/go.goms.io/aks/rp'
 alias aksdev='~/go/src/goms.io/aks/rp/bin/aksdev'
 
 # devbox
