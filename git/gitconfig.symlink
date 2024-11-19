@@ -32,7 +32,7 @@
 	required = true
 	process = git-lfs filter-process
 [user]
-	#signingkey = E0C358A87BE27B10
+	signingkey = E0C358A87BE27B10
 	email = Thomas.Gamble@microsoft.com
 [pull]
 	rebase = false
@@ -41,7 +41,6 @@
 [commit]
 	gpgsign = true
 [credential]
-	credentialStore = gpg
 	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
 	useHttpPath = true
 [url "https://dev.azure.com/msazure/CloudNativeCompute/_git/"]
