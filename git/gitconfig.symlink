@@ -43,6 +43,7 @@
 [credential]
 	credentialStore = gpg
 	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
+	useHttpPath = true
 [url "https://dev.azure.com/msazure/CloudNativeCompute/_git/"]
 	insteadOf = git@ssh.dev.azure.com:v3/msazure/CloudNativeCompute/
 

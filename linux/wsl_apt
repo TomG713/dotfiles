@@ -7,8 +7,10 @@ bsdutils
 build-essential
 ca-certificates
 containerd.io
+coreutils
 curl
 dash
+debianutils
 diffutils
 docker-buildx-plugin
 docker-ce
@@ -16,6 +18,7 @@ docker-ce-cli
 docker-compose-plugin
 findutils
 flatpak
+gcm
 git
 gnupg
 gpg
@@ -24,7 +27,9 @@ gzip
 hostname
 hugo
 init
+jq
 kubectl
+libattr1
 libbz2-dev
 libdebconfclient0
 libffi-dev
@@ -40,12 +45,14 @@ ncurses-base
 ncurses-bin
 neovim
 openjdk-8-jdk
+pass
 ripgrep
 sudo
 sysvinit-utils
 ubuntu-minimal
 ubuntu-standard
 ubuntu-wsl
+util-linux
 wget
 zlib1g-dev
 zsh
