@@ -55,6 +55,7 @@ There's a few special files in the hierarchy.
 ## possible todo
 
 * remove pretzo
+* add boxstarter instructions
 * https://github.com/ericmurphyxyz/dotfiles
 
 
